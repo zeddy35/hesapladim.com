@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Calculator } from 'lucide-react';
 import { getPost, posts } from '@/data/posts';
 import { FaqSchema } from '@/components/FaqSchema';
 import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
@@ -11,12 +11,13 @@ export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const post = getPost(params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPost(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -33,8 +34,9 @@ export function generateMetadata({
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPost(slug);
   if (!post) notFound();
 
   return (
@@ -83,7 +85,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         {post.relatedTool && (
           <div className="mt-10 p-5 rounded-xl bg-blue-50 border border-blue-200">
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-2">
-              🧮 İlgili Hesaplayıcı
+              <Calculator size={12} className="inline-block mr-1" /> İlgili Hesaplayıcı
             </p>
             <Link
               href={post.relatedTool.href}

@@ -35,7 +35,7 @@ export default function Footer() {
               {FOOTER_CATS.map(cat => (
                 <li key={cat.id}>
                   <span className="text-sm text-slate-500">
-                    {cat.emoji} {cat.name}
+                    {cat.name}
                   </span>
                 </li>
               ))}

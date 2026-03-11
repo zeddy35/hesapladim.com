@@ -43,7 +43,7 @@ export default function MegaMenu() {
             {MENU_CATEGORIES.map(cat => (
               <div key={cat.id}>
                 <h3 className={`text-[11px] font-bold uppercase tracking-widest mb-2.5 ${cat.colorClass}`}>
-                  {cat.emoji} {cat.name}
+                    {cat.name}
                 </h3>
                 <ul className="space-y-1">
                   {cat.tools.map(tool => (
