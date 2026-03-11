@@ -9,6 +9,17 @@ import {
   GELIR_VERGISI_DILIMLERI,
   AGI_KATSAYILARI,
   AGI_VERGI_ORANI,
+  TYT_KATSAYILARI,
+  TYT_YUZDELIK_TABLOSU,
+  AYT_YUZDELIK_TABLOSU,
+  HARF_NOTU_TABLOSU,
+  KPSS_KATSAYILARI,
+  KIRA_ARTIS_TAVAN_2026,
+  MEVDUAT_STOPAJ_ORANI,
+  DAMGA_VERGISI_BELGE_ORANLARI,
+  TAPU_HARCI_ORANLARI,
+  OTV_ORANLARI,
+  KDV_ORANI_ARAC,
 } from './config';
 
 export type MedeniDurum = 'bekar' | 'evliEsCalisiyor' | 'evliEsCalismiyor';
@@ -28,12 +39,14 @@ export interface MaasHesapSonucu {
 }
 
 export interface KidemSonucu {
-  calismaGunSayisi: number;
+  toplamGun: number;
   tamYil: number;
   kalanGun: number;
   gunlukBrut: number;
-  tazminatTutari: number;
-  vergidentMuaf: boolean;
+  tazminatBrut: number;
+  damgaVergisi: number;
+  netTazminat: number;
+  tavanUygulandiMi: boolean;
 }
 
 // ─── Yardımcı: aylık gelir vergisi hesabı (kümülatif dilim yöntemi) ─────────
@@ -155,34 +168,39 @@ export function severanceCalculator(
   ikramiye: number
 ): KidemSonucu {
   const MS_PER_GUN = 1000 * 60 * 60 * 24;
-  const calismaGunSayisi = Math.floor(
+  const toplamGun = Math.floor(
     (cikisTarihi.getTime() - girisTarihi.getTime()) / MS_PER_GUN
   );
 
-  const tamYil = Math.floor(calismaGunSayisi / 365);
-  const kalanGun = calismaGunSayisi % 365;
-
-  // Günlük tavan: tavan / 30
-  const gunlukTavan = KIDEM_TAZMINATI_TAVANI / 30;
+  const tamYil = Math.floor(toplamGun / 365);
+  const kalanGun = toplamGun % 365;
 
   // Hesaba dahil aylık brüt (ikramiye aylığa çevrilir)
   const aylikToplamBrut = brutMaas + yemekYardimi + yolYardimi + ikramiye / 12;
-  // Tavan kontrolü (aylık tavan: KIDEM_TAZMINATI_TAVANI)
+
+  // Tavan kontrolü: her tam yıl için ödenen tutar KIDEM_TAZMINATI_TAVANI'nı geçemez
+  const tavanUygulandiMi = aylikToplamBrut > KIDEM_TAZMINATI_TAVANI;
   const hesabaDahilBrut = Math.min(aylikToplamBrut, KIDEM_TAZMINATI_TAVANI);
 
-  // Günlük brüt
-  const gunlukBrut = Math.min(hesabaDahilBrut / 30, gunlukTavan);
+  // Gösterim için günlük brüt (aylık / 30)
+  const gunlukBrut = brutMaas / 30;
 
-  // Tazminat = günlük brüt × çalışılan gün
-  const tazminatTutari = gunlukBrut * calismaGunSayisi;
+  // Doğru formül: tazminat = hesabaDahilBrut × (toplamGün / 365)
+  const tazminatBrut = hesabaDahilBrut * (toplamGun / 365);
+
+  // Damga vergisi: %0,759 (bordro damga vergisi oranı)
+  const damgaVergisi = tazminatBrut * 0.00759;
+  const netTazminat = tazminatBrut - damgaVergisi;
 
   return {
-    calismaGunSayisi,
+    toplamGun,
     tamYil,
     kalanGun,
     gunlukBrut,
-    tazminatTutari,
-    vergidentMuaf: true, // Kıdem tazminatı yasal tavan dahilinde vergiden muaftır
+    tazminatBrut,
+    damgaVergisi,
+    netTazminat,
+    tavanUygulandiMi,
   };
 }
 
@@ -931,5 +949,505 @@ export function uykuSaati(uyanmaSaati: string): UykuSonucu {
   return {
     oneriliBakmaSaatleri: oneriler,
     idealSure: '7,5–9 saat (5–6 döngü)',
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ÖĞRENCİ / SINAV HESAPLAYICILARI
+// ═══════════════════════════════════════════════════════════════
+
+// ─── TYT Puan ───────────────────────────────────────────────────────────────
+export interface TytNets {
+  turkce: number;
+  mat: number;
+  fen: number;
+  sosyal: number;
+}
+
+export interface TytSonucu {
+  netleri: TytNets;
+  toplamNet: number;
+  hamPuan: number;
+  tytPuani: number;
+}
+
+export function tytPuanHesapla(
+  turkceD: number, turkceY: number,
+  matD: number, matY: number,
+  fenD: number, fenY: number,
+  sosyalD: number, sosyalY: number
+): TytSonucu {
+  const k = TYT_KATSAYILARI;
+  const turkceNet = turkceD - turkceY / k.turkce.yanlis;
+  const matNet    = matD    - matY    / k.temelMat.yanlis;
+  const fenNet    = fenD    - fenY    / k.fen.yanlis;
+  const sosyalNet = sosyalD - sosyalY / k.sosyal.yanlis;
+
+  const toplamNet = turkceNet + matNet + fenNet + sosyalNet;
+
+  // Ham puan = taban + (Türkçe net × 4) + (Mat net × 3) + (Fen net × 2) + (Sosyal net × 2)
+  const hamPuan =
+    k.taban +
+    turkceNet * k.turkce.dogru +
+    matNet    * k.temelMat.dogru +
+    fenNet    * k.fen.dogru +
+    sosyalNet * k.sosyal.dogru;
+
+  // TYT Standardize puanı yaklaşık formül (ÖSYM sabit katsayısı ~1.0 – 2024 dönemi)
+  const tytPuani = Math.max(100, Math.round(hamPuan * 10) / 10);
+
+  return {
+    netleri: {
+      turkce: Math.round(turkceNet * 100) / 100,
+      mat:    Math.round(matNet    * 100) / 100,
+      fen:    Math.round(fenNet    * 100) / 100,
+      sosyal: Math.round(sosyalNet * 100) / 100,
+    },
+    toplamNet: Math.round(toplamNet * 100) / 100,
+    hamPuan: Math.round(hamPuan * 100) / 100,
+    tytPuani,
+  };
+}
+
+// ─── AYT Puan ────────────────────────────────────────────────────────────────
+export type AytAlan = 'SAY' | 'EA' | 'SOZ' | 'DIL';
+
+export interface AytNetGiris {
+  // Sayısal
+  matNet?: number;
+  fizikNet?: number;
+  kimyaNet?: number;
+  biyolojiNet?: number;
+  // EA
+  edebiyatNet?: number;
+  tarih1Net?: number;
+  cografya1Net?: number;
+  // Sözel (ek)
+  tarih2Net?: number;
+  cografya2Net?: number;
+  felsefeNet?: number;
+  dinNet?: number;
+  // Dil
+  ydtNet?: number;
+}
+
+export interface AytSonucu {
+  alanNetler: Record<string, number>;
+  toplamNet: number;
+  aytHamPuan: number;
+  aytPuani: number;
+}
+
+export function aytPuanHesapla(alan: AytAlan, netler: AytNetGiris): AytSonucu {
+  const taban = 100;
+  let hamPuan = taban;
+  const alanNetler: Record<string, number> = {};
+  let toplamNet = 0;
+
+  if (alan === 'SAY') {
+    const mat  = netler.matNet ?? 0;
+    const fiz  = netler.fizikNet ?? 0;
+    const kim  = netler.kimyaNet ?? 0;
+    const bio  = netler.biyolojiNet ?? 0;
+    hamPuan += mat * 3 + fiz * 3 + kim * 3 + bio * 3;
+    toplamNet = mat + fiz + kim + bio;
+    Object.assign(alanNetler, { Matematik: mat, Fizik: fiz, Kimya: kim, Biyoloji: bio });
+  } else if (alan === 'EA') {
+    const mat  = netler.matNet ?? 0;
+    const edb  = netler.edebiyatNet ?? 0;
+    const tar  = netler.tarih1Net ?? 0;
+    const cog  = netler.cografya1Net ?? 0;
+    hamPuan += mat * 3 + edb * 3 + tar * 2 + cog * 2;
+    toplamNet = mat + edb + tar + cog;
+    Object.assign(alanNetler, { Matematik: mat, Edebiyat: edb, 'Tarih-1': tar, 'Coğrafya-1': cog });
+  } else if (alan === 'SOZ') {
+    const edb  = netler.edebiyatNet ?? 0;
+    const tar1 = netler.tarih1Net ?? 0;
+    const cog1 = netler.cografya1Net ?? 0;
+    const tar2 = netler.tarih2Net ?? 0;
+    const cog2 = netler.cografya2Net ?? 0;
+    const fel  = netler.felsefeNet ?? 0;
+    const din  = netler.dinNet ?? 0;
+    hamPuan += edb * 3 + tar1 * 3 + cog1 * 2 + tar2 * 2 + cog2 * 2 + fel * 2 + din * 2;
+    toplamNet = edb + tar1 + cog1 + tar2 + cog2 + fel + din;
+    Object.assign(alanNetler, { Edebiyat: edb, 'Tarih-1': tar1, 'Coğrafya-1': cog1, 'Tarih-2': tar2, 'Coğrafya-2': cog2, Felsefe: fel, 'Din Kültürü': din });
+  } else {
+    const ydt = netler.ydtNet ?? 0;
+    hamPuan += ydt * 3;
+    toplamNet = ydt;
+    Object.assign(alanNetler, { 'Yabancı Dil (YDT)': ydt });
+  }
+
+  return {
+    alanNetler,
+    toplamNet: Math.round(toplamNet * 100) / 100,
+    aytHamPuan: Math.round(hamPuan * 100) / 100,
+    aytPuani: Math.max(100, Math.round(hamPuan * 10) / 10),
+  };
+}
+
+// ─── YKS Yüzdelik Dilim ──────────────────────────────────────────────────────
+export type YksSinav = 'TYT' | 'SAY' | 'EA' | 'SOZ' | 'DIL';
+
+export interface YuzdelikSonucu {
+  tahminiYuzdelik: number;
+  tahminiSiralama: number;
+  universiteOlasiligi: string;
+}
+
+const KATILIMCI_SAYISI = 2_500_000;
+
+export function yuzdelikDilim(puan: number, sinav: YksSinav): YuzdelikSonucu {
+  const tablo = sinav === 'TYT' ? TYT_YUZDELIK_TABLOSU : AYT_YUZDELIK_TABLOSU[sinav as 'SAY' | 'EA' | 'SOZ' | 'DIL'];
+
+  let yuzdelik = 99;
+  for (const satir of tablo) {
+    if (puan >= satir.puanAlt && puan <= satir.puanUst) {
+      yuzdelik = satir.yuzdelik;
+      break;
+    }
+  }
+
+  const siralama = Math.round((yuzdelik / 100) * KATILIMCI_SAYISI);
+
+  let olasilik: string;
+  if (yuzdelik <= 1)   olasilik = 'Çok iyi bir sıralama. Prestijli üniversitelerin popüler bölümlerine yerleşme şansı yüksek.';
+  else if (yuzdelik <= 5)  olasilik = 'İyi bir sıralama. Devlet üniversitelerinin tercih edilen bölümlerine yerleşme olasılığı var.';
+  else if (yuzdelik <= 20) olasilik = 'Orta-üstü bir sıralama. Devlet üniversitesi şansı mevcut, bölüm seçimine dikkat et.';
+  else if (yuzdelik <= 50) olasilik = 'Orta bir sıralama. Bazı devlet ve vakıf üniversitelerine yerleşme olasılığın var.';
+  else if (yuzdelik <= 80) olasilik = 'Sınırda bir sıralama. Vakıf üniversiteleri ve burslu kontenjanlar değerlendirilebilir.';
+  else                     olasilik = 'Düşük bir sıralama. Tekrar sınava girmek veya farklı tercihler yapmak önerilir.';
+
+  return { tahminiYuzdelik: yuzdelik, tahminiSiralama: siralama, universiteOlasiligi: olasilik };
+}
+
+// ─── Not Ortalaması ──────────────────────────────────────────────────────────
+export interface DersNot {
+  ad: string;
+  not: number;
+  kredi: number;
+}
+
+export interface NotOrtalamaSonucu {
+  agirlikliOrtalama: number;
+  harfNotu: string;
+  gpa4: number;
+  basariDurumu: string;
+  toplamKredi: number;
+}
+
+export function notOrtalamasi(dersler: DersNot[]): NotOrtalamaSonucu {
+  const gecerli = dersler.filter((d) => d.kredi > 0 && d.not >= 0 && d.not <= 100);
+  if (gecerli.length === 0) {
+    return { agirlikliOrtalama: 0, harfNotu: 'FF', gpa4: 0, basariDurumu: 'Veri yok', toplamKredi: 0 };
+  }
+
+  const toplamKredi = gecerli.reduce((s, d) => s + d.kredi, 0);
+  const agirlikliToplam = gecerli.reduce((s, d) => s + d.not * d.kredi, 0);
+  const ort = agirlikliToplam / toplamKredi;
+
+  const harfSatir = HARF_NOTU_TABLOSU.find((r) => ort >= r.min && ort <= r.maks) ?? HARF_NOTU_TABLOSU[HARF_NOTU_TABLOSU.length - 1];
+
+  let durum: string;
+  if (ort >= 90)      durum = 'Yüksek Onur Öğrencisi';
+  else if (ort >= 80) durum = 'Onur Öğrencisi';
+  else if (ort >= 60) durum = 'Başarılı';
+  else if (ort >= 50) durum = 'Koşullu Başarılı';
+  else                durum = 'Başarısız';
+
+  return {
+    agirlikliOrtalama: Math.round(ort * 100) / 100,
+    harfNotu: harfSatir.harf,
+    gpa4: harfSatir.gpa4,
+    basariDurumu: durum,
+    toplamKredi,
+  };
+}
+
+// ─── GPA Hesaplama ───────────────────────────────────────────────────────────
+export interface GpaDers {
+  harf: string;
+  kredi: number;
+}
+
+export interface GpaSonucu {
+  gpa4: number;
+  gpa100: number;
+  basariDurumu: string;
+  toplamKredi: number;
+}
+
+const HARF_GPA4: Record<string, number> = {
+  AA: 4.0, BA: 3.5, BB: 3.0, CB: 2.5,
+  CC: 2.0, DC: 1.5, DD: 1.0, FD: 0.5, FF: 0.0,
+};
+
+const HARF_100: Record<string, number> = {
+  AA: 95, BA: 87, BB: 82, CB: 77,
+  CC: 72, DC: 67, DD: 62, FD: 55, FF: 25,
+};
+
+export function gpaHesapla(dersler: GpaDers[]): GpaSonucu {
+  const gecerli = dersler.filter((d) => d.kredi > 0 && d.harf in HARF_GPA4);
+  if (gecerli.length === 0) {
+    return { gpa4: 0, gpa100: 0, basariDurumu: 'Veri yok', toplamKredi: 0 };
+  }
+
+  const toplamKredi = gecerli.reduce((s, d) => s + d.kredi, 0);
+  const gpa4 = gecerli.reduce((s, d) => s + HARF_GPA4[d.harf] * d.kredi, 0) / toplamKredi;
+  const gpa100 = gecerli.reduce((s, d) => s + HARF_100[d.harf] * d.kredi, 0) / toplamKredi;
+
+  let durum: string;
+  if (gpa4 >= 3.5)     durum = 'Yüksek Onur (Summa Cum Laude)';
+  else if (gpa4 >= 3.0) durum = 'Onur Öğrencisi (Cum Laude)';
+  else if (gpa4 >= 2.0) durum = 'Normal Mezuniyet';
+  else if (gpa4 >= 1.0) durum = 'Koşullu Başarılı';
+  else                  durum = 'Başarısız';
+
+  return {
+    gpa4: Math.round(gpa4 * 100) / 100,
+    gpa100: Math.round(gpa100 * 100) / 100,
+    basariDurumu: durum,
+    toplamKredi,
+  };
+}
+
+// ─── KPSS Puan ───────────────────────────────────────────────────────────────
+export interface KpssSonucu {
+  gkNet: number;
+  gyNet: number;
+  alanNet: number | null;
+  toplamNet: number;
+  kpssP3: number;
+  kpssP10: number;
+  kpssP93: number | null;
+  kpssP94: number | null;
+}
+
+export function kpssPuanHesapla(
+  gkD: number, gkY: number,
+  gyD: number, gyY: number,
+  alanD?: number, alanY?: number
+): KpssSonucu {
+  const k = KPSS_KATSAYILARI;
+  const gkNet  = gkD  - gkY  * k.gk.yanlis;
+  const gyNet  = gyD  - gyY  * k.gy.yanlis;
+  const alanNet = alanD !== undefined && alanY !== undefined
+    ? alanD - alanY * k.alan.yanlis
+    : null;
+
+  // KPSS P3 ve P10: GK+GY ortalaması üzerinden standardize puan
+  // Yaklaşık formül: (GK net / 60 + GY net / 60) / 2 × 100 × 0.7 + 50
+  const gkgyOrtalama = (gkNet / k.gk.soru + gyNet / k.gy.soru) / 2;
+  const p3  = Math.max(0, Math.round((gkgyOrtalama * 70 + 50) * 100) / 100);
+  const p10 = p3;
+
+  const p93 = alanNet !== null
+    ? Math.max(0, Math.round(((gkgyOrtalama * 0.3 + (alanNet / k.alan.soru) * 0.4) * 100 + 50) * 100) / 100)
+    : null;
+  const p94 = p93;
+
+  return {
+    gkNet:  Math.round(gkNet  * 100) / 100,
+    gyNet:  Math.round(gyNet  * 100) / 100,
+    alanNet: alanNet !== null ? Math.round(alanNet * 100) / 100 : null,
+    toplamNet: Math.round((gkNet + gyNet + (alanNet ?? 0)) * 100) / 100,
+    kpssP3: p3,
+    kpssP10: p10,
+    kpssP93: p93,
+    kpssP94: p94,
+  };
+}
+
+// ─── Kira Artış Hesaplama ────────────────────────────────────────────────────
+export interface KiraArtisSonucu {
+  yeniKira: number;
+  artisYuzde: number;
+  artisliMiktar: number;
+  yasalTavan: number;
+  yasalYeniKira: number;
+}
+
+export function kiraArtis(mevcutKira: number, artisOrani: number): KiraArtisSonucu {
+  const artisliMiktar = mevcutKira * (artisOrani / 100);
+  const yeniKira = mevcutKira + artisliMiktar;
+  const yasalArtis = mevcutKira * (KIRA_ARTIS_TAVAN_2026 / 100);
+  return {
+    yeniKira:      Math.round(yeniKira * 100) / 100,
+    artisYuzde:    artisOrani,
+    artisliMiktar: Math.round(artisliMiktar * 100) / 100,
+    yasalTavan:    KIRA_ARTIS_TAVAN_2026,
+    yasalYeniKira: Math.round((mevcutKira + yasalArtis) * 100) / 100,
+  };
+}
+
+// ─── Mevduat Faiz Hesaplama ─────────────────────────────────────────────────
+export interface MevduatFaizSonucu {
+  brutFaiz: number;
+  stopajVergisi: number;
+  netFaiz: number;
+  toplamBrutTutar: number;
+  toplamNetTutar: number;
+  gunlukGetiri: number;
+  aylikGetiri: number;
+}
+
+export function mevduatFaiz(
+  anapara: number,
+  faizOrani: number,
+  vade: number,
+  vergisizMi: boolean,
+): MevduatFaizSonucu {
+  const brutFaiz = anapara * (faizOrani / 100) * (vade / 365);
+  const stopajVergisi = vergisizMi ? 0 : brutFaiz * MEVDUAT_STOPAJ_ORANI;
+  const netFaiz = brutFaiz - stopajVergisi;
+  return {
+    brutFaiz:       Math.round(brutFaiz * 100) / 100,
+    stopajVergisi:  Math.round(stopajVergisi * 100) / 100,
+    netFaiz:        Math.round(netFaiz * 100) / 100,
+    toplamBrutTutar: Math.round((anapara + brutFaiz) * 100) / 100,
+    toplamNetTutar:  Math.round((anapara + netFaiz) * 100) / 100,
+    gunlukGetiri:   Math.round((netFaiz / vade) * 100) / 100,
+    aylikGetiri:    Math.round((netFaiz / vade * 30) * 100) / 100,
+  };
+}
+
+// ─── Damga Vergisi Hesaplama ────────────────────────────────────────────────
+export interface DamgaVergiSonucu {
+  vergiOrani: number;
+  vergiTutari: number;
+  toplamTutar: number;
+}
+
+export function damgaVergisiHesapla(belge: string, tutar: number): DamgaVergiSonucu {
+  const oran = DAMGA_VERGISI_BELGE_ORANLARI[belge]?.oran ?? DAMGA_VERGISI_ORANI;
+  const vergiTutari = tutar * oran;
+  return {
+    vergiOrani:  oran,
+    vergiTutari: Math.round(vergiTutari * 100) / 100,
+    toplamTutar: Math.round((tutar + vergiTutari) * 100) / 100,
+  };
+}
+
+// ─── Tapu Harcı Hesaplama ───────────────────────────────────────────────────
+export type TapuIslem = 'satis' | 'bagis' | 'ipotek';
+
+export interface TapuHarciSonucu {
+  aliciHarci: number;
+  saticiHarci: number;
+  toplamHarc: number;
+  donusumBedeli: number;
+  toplamMaliyet: number;
+}
+
+export function tapuHarci(
+  beyanDegeri: number,
+  islem: TapuIslem,
+  trafoBedeli = 0,
+): TapuHarciSonucu {
+  const oranlar = TAPU_HARCI_ORANLARI[islem];
+  const aliciHarci  = beyanDegeri * oranlar.alici;
+  const saticiHarci = beyanDegeri * oranlar.satici;
+  const toplamHarc  = aliciHarci + saticiHarci;
+  return {
+    aliciHarci:    Math.round(aliciHarci * 100) / 100,
+    saticiHarci:   Math.round(saticiHarci * 100) / 100,
+    toplamHarc:    Math.round(toplamHarc * 100) / 100,
+    donusumBedeli: Math.round(trafoBedeli * 100) / 100,
+    toplamMaliyet: Math.round((toplamHarc + trafoBedeli) * 100) / 100,
+  };
+}
+
+// ─── İhbar Tazminatı Hesaplama ──────────────────────────────────────────────
+export interface IhbarSonucu {
+  calismaYili: number;
+  ihbarSuresi: number;   // hafta
+  ihbarUcreti: number;
+}
+
+export function ihbarTazminati(
+  girisTarihi: Date,
+  cikisTarihi: Date,
+  brutMaas: number,
+): IhbarSonucu {
+  const diffAy = (cikisTarihi.getTime() - girisTarihi.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+  const calismaYili = diffAy / 12;
+
+  let ihbarSuresi: number;
+  if (diffAy < 6)        ihbarSuresi = 2;
+  else if (diffAy < 18)  ihbarSuresi = 4;
+  else if (diffAy < 36)  ihbarSuresi = 6;
+  else                   ihbarSuresi = 8;
+
+  const gunlukBrut = brutMaas / 30;
+  const ihbarUcreti = gunlukBrut * (ihbarSuresi * 7);
+  return {
+    calismaYili: Math.round(calismaYili * 10) / 10,
+    ihbarSuresi,
+    ihbarUcreti: Math.round(ihbarUcreti * 100) / 100,
+  };
+}
+
+// ─── Fazla Mesai Hesaplama ──────────────────────────────────────────────────
+export type FazlaMesaiMod = 'haftalik' | 'gece' | 'tatil';
+
+export interface FazlaMesaiSonucu {
+  saatlikUcret: number;
+  zamFaktoru: number;
+  fazlaMesaiUcreti: number;
+}
+
+export function fazlaMesai(
+  brutMaas: number,
+  normalMesaiSaat: number,
+  fazlaSaat: number,
+  mod: FazlaMesaiMod,
+): FazlaMesaiSonucu {
+  const saatlikUcret = brutMaas / (normalMesaiSaat * 4.33);
+  const zamFaktoru = mod === 'tatil' ? 2 : 1.5;
+  const fazlaMesaiUcreti = saatlikUcret * zamFaktoru * fazlaSaat;
+  return {
+    saatlikUcret:     Math.round(saatlikUcret * 100) / 100,
+    zamFaktoru,
+    fazlaMesaiUcreti: Math.round(fazlaMesaiUcreti * 100) / 100,
+  };
+}
+
+// ─── ÖTV Hesaplama ───────────────────────────────────────────────────────────
+export interface OtvSonucu {
+  otvOrani: number;
+  otvTutari: number;
+  kdvMatrahi: number;
+  kdvTutari: number;
+  toplamVergi: number;
+  vergisizFiyat: number;
+}
+
+export function otvHesapla(aracTipi: string, motorHacmi: number, fiyat: number): OtvSonucu {
+  let otvKey: string;
+  if (aracTipi === 'elektrikli') {
+    otvKey = 'elektrikli';
+  } else if (motorHacmi <= 1600) {
+    otvKey = 'cc1600alt';
+  } else if (motorHacmi <= 2000) {
+    otvKey = 'cc1601_2000';
+  } else {
+    otvKey = 'cc2001ust';
+  }
+  const otvOrani = OTV_ORANLARI[otvKey]?.oran ?? 0.45;
+
+  // Satış fiyatı = vergisiz × (1 + OTV) × (1 + KDV)
+  const vergisizFiyat = fiyat / ((1 + otvOrani) * (1 + KDV_ORANI_ARAC));
+  const otvTutari = vergisizFiyat * otvOrani;
+  const kdvMatrahi = vergisizFiyat + otvTutari;
+  const kdvTutari = kdvMatrahi * KDV_ORANI_ARAC;
+
+  return {
+    otvOrani,
+    otvTutari:    Math.round(otvTutari),
+    kdvMatrahi:   Math.round(kdvMatrahi),
+    kdvTutari:    Math.round(kdvTutari),
+    toplamVergi:  Math.round(otvTutari + kdvTutari),
+    vergisizFiyat: Math.round(vergisizFiyat),
   };
 }

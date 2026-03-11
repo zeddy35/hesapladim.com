@@ -81,14 +81,14 @@ describe('severanceCalculator', () => {
     const sonuc = severanceCalculator(giris, cikis, 30000, 0, 0, 0);
 
     // Çalışma günü ≈ 1095 veya 1096 (artık yıl)
-    expect(sonuc.calismaGunSayisi).toBeGreaterThanOrEqual(1095);
-    expect(sonuc.calismaGunSayisi).toBeLessThanOrEqual(1097);
+    expect(sonuc.toplamGun).toBeGreaterThanOrEqual(1095);
+    expect(sonuc.toplamGun).toBeLessThanOrEqual(1097);
 
     // Tazminat pozitif olmalı
-    expect(sonuc.tazminatTutari).toBeGreaterThan(0);
+    expect(sonuc.tazminatBrut).toBeGreaterThan(0);
 
-    // Vergiden muaf
-    expect(sonuc.vergidentMuaf).toBe(true);
+    // Tavan uygulanmamalı (30.000 < 64.948,77)
+    expect(sonuc.tavanUygulandiMi).toBe(false);
   });
 
   it('tavan aşıldığında tavan maaşla hesaplar', () => {
@@ -101,10 +101,10 @@ describe('severanceCalculator', () => {
     const normal = severanceCalculator(giris, cikis, 30000, 0, 0, 0);
 
     // Her iki hesaplamada da maaş tavanla sınırlanmalı
-    expect(tavan.tazminatTutari).toBeGreaterThan(normal.tazminatTutari);
-    // Tavan maaş 64948.77/30 günlük brüte eşit olmalı
-    const beklenenGunluk = 64948.77 / 30;
-    expect(tavan.gunlukBrut).toBeCloseTo(beklenenGunluk, 1);
+    expect(tavan.tazminatBrut).toBeGreaterThan(normal.tazminatBrut);
+    // Tavan uygulandı mı kontrolü
+    expect(tavan.tavanUygulandiMi).toBe(true);
+    expect(normal.tavanUygulandiMi).toBe(false);
   });
 
   it('yemek, yol ve ikramiye hesaba dahil edilir', () => {
@@ -114,7 +114,7 @@ describe('severanceCalculator', () => {
     const sadeceMaas = severanceCalculator(giris, cikis, 20000, 0, 0, 0);
     const eklerle = severanceCalculator(giris, cikis, 20000, 2000, 1000, 12000);
 
-    expect(eklerle.tazminatTutari).toBeGreaterThan(sadeceMaas.tazminatTutari);
+    expect(eklerle.tazminatBrut).toBeGreaterThan(sadeceMaas.tazminatBrut);
   });
 
   it('çalışma süresi hesabı doğru: tam yıl ve kalan gün', () => {
@@ -122,7 +122,18 @@ describe('severanceCalculator', () => {
     const cikis = new Date('2023-09-15');
     const sonuc = severanceCalculator(giris, cikis, 25000, 0, 0, 0);
 
-    expect(sonuc.tamYil).toBe(Math.floor(sonuc.calismaGunSayisi / 365));
-    expect(sonuc.kalanGun).toBe(sonuc.calismaGunSayisi % 365);
+    expect(sonuc.tamYil).toBe(Math.floor(sonuc.toplamGun / 365));
+    expect(sonuc.kalanGun).toBe(sonuc.toplamGun % 365);
+  });
+
+  it('örnek doğrulama: 01.01.2023 - 11.03.2026, brüt 35.000', () => {
+    const giris = new Date('2023-01-01');
+    const cikis = new Date('2026-03-11');
+    const sonuc = severanceCalculator(giris, cikis, 35000, 0, 0, 0);
+
+    expect(sonuc.toplamGun).toBe(1165);
+    expect(sonuc.tazminatBrut).toBeCloseTo(35000 * (1165 / 365), 2);
+    expect(sonuc.damgaVergisi).toBeCloseTo(sonuc.tazminatBrut * 0.00759, 2);
+    expect(sonuc.netTazminat).toBeCloseTo(sonuc.tazminatBrut - sonuc.damgaVergisi, 2);
   });
 });

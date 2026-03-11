@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import KidemTazminatiForm from '@/components/KidemTazminatiForm';
 
 export const metadata: Metadata = {
-  title: 'Kıdem Tazminatı Hesaplama 2026 | Güncel Tavan ile',
+  title: 'Kıdem Tazminatı Hesaplama 2026',
   description:
-    'İşe giriş ve çıkış tarihinizi girerek kıdem tazminatınızı hesaplayın. 2026 tavan: 64.948,77 TL',
+    'Giriş-çıkış tarihi ve maaşınızla kıdem tazminatı hesaplayın. 2026 tavan: 64.948 TL',
+  keywords: ['kıdem tazminatı', 'kıdem tazminatı hesaplama', 'kıdem tazminatı 2026', 'kıdem hesaplama', 'tazminat hesaplama'],
+  alternates: { canonical: 'https://hesaplayim.com/kidem-tazminati' },
   openGraph: {
     title: 'Kıdem Tazminatı Hesaplama 2026',
-    description:
-      '2026 güncel tavan (64.948,77 TL) ile kıdem tazminatı hesaplama aracı.',
+    description: 'Giriş-çıkış tarihi ve maaşınızla kıdem tazminatı hesaplayın. 2026 tavan: 64.948 TL',
+    url: 'https://hesaplayim.com/kidem-tazminati',
   },
 };
 

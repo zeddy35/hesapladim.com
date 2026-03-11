@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import KdvForm from './Form';
 
 export const metadata: Metadata = {
-  title: 'KDV Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
+  title: 'KDV Hesaplama - Ekle veya Çıkar 2026',
   description:
-    'KDV hesaplama aracı ile KDV hariç ve dahil fiyatları 2026 oranlarıyla (%1, %8, %10, %18, %20) anında hesaplayın. KDV ekleme ve çıkarma.',
-  alternates: { canonical: 'https://hesapladim.com/kdv-hesaplama' },
+    'KDV hariç/dahil fiyat hesaplama. %1, %8, %10, %18, %20 oranları. Anlık sonuç.',
+  keywords: ['kdv hesaplama', 'kdv ekle çıkar', 'kdv dahil hariç', 'katma değer vergisi hesaplama', 'kdv 2026'],
+  alternates: { canonical: 'https://hesaplayim.com/kdv-hesaplama' },
   openGraph: {
-    title: 'KDV Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
-    description: '2026 KDV oranlarıyla KDV hariç/dahil hesaplama. Tüm oranlar karşılaştırmalı tablo.',
+    title: 'KDV Hesaplama - Ekle veya Çıkar 2026',
+    description: 'KDV hariç/dahil fiyat hesaplama. %1, %8, %10, %18, %20 oranları. Anlık sonuç.',
+    url: 'https://hesaplayim.com/kdv-hesaplama',
   },
 };
 

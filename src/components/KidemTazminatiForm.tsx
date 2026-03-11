@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { severanceCalculator, type KidemSonucu } from '@/lib/calculations';
 import { formatCurrency, parseInputToNumber, formatCalismaSuresi } from '@/lib/formatters';
 import ShareButton from '@/components/ShareButton';
+import AdBanner from '@/components/AdBanner';
 
 const LS_KEY = 'kidem_son_hesaplama';
 
@@ -88,13 +89,14 @@ export default function KidemTazminatiForm() {
   }, [hesapla]);
 
   const paylasmMetni = sonuc
-    ? `Kıdem Tazminatım: ${formatCurrency(sonuc.tazminatTutari)} (${formatCalismaSuresi(sonuc.calismaGunSayisi)}) | bordrohesapla.com`
+    ? `Kıdem Tazminatım: ${formatCurrency(sonuc.netTazminat)} (${formatCalismaSuresi(sonuc.toplamGun)}) | hesaplayim.com`
     : '';
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <AdBanner slot="header" size="728x90" />
 
-      <h1 className="text-3xl font-extrabold text-blue-800 mb-2">
+      <h1 className="text-3xl font-extrabold text-blue-800 mb-2 mt-4">
         Kıdem Tazminatı Hesaplama 2026
       </h1>
       <p className="text-gray-500 mb-8">
@@ -177,6 +179,9 @@ export default function KidemTazminatiForm() {
         {/* ── Sağ Panel: Sonuç ── */}
         {sonuc && (
           <div className="flex-1 space-y-6 print-section">
+            <div className="flex justify-center lg:justify-start">
+              <AdBanner slot="sidebar" size="300x250" />
+            </div>
 
             {/* Uyarı banner */}
             <div className="bg-yellow-50 border border-yellow-300 rounded-2xl p-4 flex gap-3">
@@ -189,12 +194,12 @@ export default function KidemTazminatiForm() {
 
             {/* Ana tutar */}
             <div className="bg-blue-800 text-white rounded-2xl p-6 shadow-lg">
-              <div className="text-sm font-medium opacity-80 mb-1">Tahmini Kıdem Tazminatı</div>
+              <div className="text-sm font-medium opacity-80 mb-1">Net Kıdem Tazminatı</div>
               <div className="text-5xl font-extrabold tracking-tight">
-                {formatCurrency(sonuc.tazminatTutari)}
+                {formatCurrency(sonuc.netTazminat)}
               </div>
               <div className="mt-2 text-blue-200 text-sm">
-                {sonuc.vergidentMuaf ? '✓ Yasal tavan dahilinde vergiden muaftır' : ''}
+                {sonuc.tavanUygulandiMi ? '⚠️ Yasal tavan uygulandı' : '✓ Yasal tavan dahilinde'}
               </div>
             </div>
 
@@ -206,12 +211,12 @@ export default function KidemTazminatiForm() {
                   <tr>
                     <td className="py-2 text-gray-600">Çalışma Süresi</td>
                     <td className="py-2 text-right font-semibold">
-                      {formatCalismaSuresi(sonuc.calismaGunSayisi)}
+                      {formatCalismaSuresi(sonuc.toplamGun)}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2 text-gray-600">Toplam Gün</td>
-                    <td className="py-2 text-right">{sonuc.calismaGunSayisi} gün</td>
+                    <td className="py-2 text-right">{sonuc.toplamGun} gün</td>
                   </tr>
                   <tr>
                     <td className="py-2 text-gray-600">Tam Yıl</td>
@@ -222,13 +227,21 @@ export default function KidemTazminatiForm() {
                     <td className="py-2 text-right">{sonuc.kalanGun} gün</td>
                   </tr>
                   <tr>
-                    <td className="py-2 text-gray-600">Günlük Brüt (esas alınan)</td>
+                    <td className="py-2 text-gray-600">Günlük Brüt (gösterim)</td>
                     <td className="py-2 text-right">{formatCurrency(sonuc.gunlukBrut)}</td>
                   </tr>
+                  <tr>
+                    <td className="py-2 text-gray-600">Brüt Tazminat</td>
+                    <td className="py-2 text-right">{formatCurrency(sonuc.tazminatBrut)}</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-gray-600">Damga Vergisi (%0,759)</td>
+                    <td className="py-2 text-right text-red-600">− {formatCurrency(sonuc.damgaVergisi)}</td>
+                  </tr>
                   <tr className="border-t-2 border-blue-200">
-                    <td className="py-3 font-bold text-blue-800">Toplam Tazminat</td>
+                    <td className="py-3 font-bold text-blue-800">Net Tazminat</td>
                     <td className="py-3 text-right font-bold text-blue-800 text-lg">
-                      {formatCurrency(sonuc.tazminatTutari)}
+                      {formatCurrency(sonuc.netTazminat)}
                     </td>
                   </tr>
                 </tbody>
@@ -248,6 +261,8 @@ export default function KidemTazminatiForm() {
           </div>
         )}
       </div>
+
+      <AdBanner slot="mid" size="728x90" />
 
       {/* FAQ JSON-LD */}
       <script
@@ -285,6 +300,7 @@ export default function KidemTazminatiForm() {
           }),
         }}
       />
+      <AdBanner slot="footer" size="728x90" />
     </div>
   );
 }

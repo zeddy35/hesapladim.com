@@ -5,6 +5,7 @@ import { grossToNet, netToGross, type MaasHesapSonucu, type MedeniDurum } from '
 import { formatCurrency, parseInputToNumber } from '@/lib/formatters';
 import SalaryChart from '@/components/SalaryChart';
 import ShareButton from '@/components/ShareButton';
+import AdBanner from '@/components/AdBanner';
 
 const LS_KEY = 'brutten_nete_son_hesaplama';
 
@@ -68,7 +69,8 @@ export default function BruttenNeteForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-extrabold text-blue-800 mb-2">
+      <AdBanner slot="header" size="728x90" />
+      <h1 className="text-3xl font-extrabold text-blue-800 mb-2 mt-4">
         Brütten Nete Maaş Hesaplama 2026
       </h1>
       <p className="text-gray-500 mb-8">
@@ -142,6 +144,9 @@ export default function BruttenNeteForm() {
         {/* ── Sağ Panel: Sonuç ── */}
         {sonuc && (
           <div className="flex-1 space-y-6 print-section">
+            <div className="flex justify-center lg:justify-start">
+              <AdBanner slot="sidebar" size="300x250" />
+            </div>
 
             {/* Net maaş kartı */}
             <div className="bg-blue-800 text-white rounded-2xl p-6 shadow-lg">
@@ -231,6 +236,8 @@ export default function BruttenNeteForm() {
         )}
       </div>
 
+      <AdBanner slot="mid" size="728x90" />
+
       {/* FAQ JSON-LD */}
       <script
         type="application/ld+json"
@@ -267,6 +274,7 @@ export default function BruttenNeteForm() {
           }),
         }}
       />
+      <AdBanner slot="footer" size="728x90" />
     </div>
   );
 }

@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import YasForm from './Form';
 
 export const metadata: Metadata = {
-  title: 'Yaş Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
+  title: 'Yaş Hesaplama - Gün Ay Yıl',
   description:
-    'Doğum tarihinizi girerek yaşınızı gün, ay, yıl cinsinden öğrenin. Burç bilgisi, sonraki doğum gününe kalan gün ve toplam yaşadığınız gün.',
-  alternates: { canonical: 'https://hesapladim.com/yas-hesaplama' },
+    'Doğum tarihinizden yaşınızı, burçunuzu ve doğum günü geri sayımını görün.',
+  keywords: ['yaş hesaplama', 'doğum tarihi hesaplama', 'kaç yaşındayım', 'burç hesaplama', 'yaş gün hesaplama'],
+  alternates: { canonical: 'https://hesaplayim.com/yas-hesaplama' },
   openGraph: {
-    title: 'Yaş Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
-    description: 'Doğum tarihinizden yaş, burç ve doğum günü geri sayımı hesaplayın.',
+    title: 'Yaş Hesaplama - Gün Ay Yıl',
+    description: 'Doğum tarihinizden yaşınızı, burçunuzu ve doğum günü geri sayımını görün.',
+    url: 'https://hesaplayim.com/yas-hesaplama',
   },
 };
 

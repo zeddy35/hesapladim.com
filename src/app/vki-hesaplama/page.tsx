@@ -2,11 +2,16 @@ import type { Metadata } from 'next';
 import VkiForm from './Form';
 
 export const metadata: Metadata = {
-  title: 'VKİ Hesaplama 2026 | Vücut Kitle İndeksi (BMI) Hesapla',
+  title: 'VKİ Hesaplama - Beden Kitle İndeksi',
   description:
-    'Boy ve kilonuza göre VKİ (BMI) değerinizi, ideal kilo aralığınızı ve obezite durumunuzu anında hesaplayın. 2026 güncel kategoriler.',
-  alternates: { canonical: 'https://hesapladim.com/vki-hesaplama' },
-  openGraph: { title: 'VKİ / BMI Hesaplama 2026', url: 'https://hesapladim.com/vki-hesaplama' },
+    'Boy ve kilonuzla vücut kitle indeksi hesaplayın. İdeal kilo aralığı gösterilir.',
+  keywords: ['vki hesaplama', 'beden kitle indeksi', 'bmi hesaplama', 'ideal kilo hesaplama', 'obezite hesaplama'],
+  alternates: { canonical: 'https://hesaplayim.com/vki-hesaplama' },
+  openGraph: {
+    title: 'VKİ Hesaplama - Beden Kitle İndeksi',
+    description: 'Boy ve kilonuzla vücut kitle indeksi hesaplayın. İdeal kilo aralığı gösterilir.',
+    url: 'https://hesaplayim.com/vki-hesaplama',
+  },
 };
 
 const faqSchema = {

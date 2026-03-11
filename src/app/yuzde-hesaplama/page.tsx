@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import YuzdeForm from './Form';
 
 export const metadata: Metadata = {
-  title: 'Yüzde Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
+  title: 'Yüzde Hesaplama - 5 Farklı Mod',
   description:
-    'Yüzde hesaplama aracı: sayının yüzdesi, yüzde artış/azalış, iki sayı arası yüzde değişim. 5 farklı yüzde hesaplama modu.',
-  alternates: { canonical: 'https://hesapladim.com/yuzde-hesaplama' },
+    'Yüzde alma, ekleme, çıkarma, oran ve değişim hesaplama. Adım adım çözüm.',
+  keywords: ['yüzde hesaplama', 'yüzde alma', 'yüzde artış hesaplama', 'yüzde değişim', 'indirim hesaplama'],
+  alternates: { canonical: 'https://hesaplayim.com/yuzde-hesaplama' },
   openGraph: {
-    title: 'Yüzde Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
-    description: '5 farklı modda yüzde hesaplama: artış, azalış, oran, değişim.',
+    title: 'Yüzde Hesaplama - 5 Farklı Mod',
+    description: 'Yüzde alma, ekleme, çıkarma, oran ve değişim hesaplama. Adım adım çözüm.',
+    url: 'https://hesaplayim.com/yuzde-hesaplama',
   },
 };
 
