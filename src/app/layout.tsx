@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CookieBanner from '@/components/CookieBanner';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );

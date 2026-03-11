@@ -63,6 +63,11 @@ export default function Footer() {
                   Hakkımızda
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

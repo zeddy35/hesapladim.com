@@ -40,6 +40,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: tool.priority,
   }));
 
+  const blogSlugs = [
+    '2026-asgari-ucret-net-maas',
+    'kidem-tazminati-alma-sartlari',
+    '2026-gelir-vergisi-dilimleri',
+    'sgk-prim-oranlari-2026',
+    'yillik-izin-haklari-turkiye',
+  ];
+
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: 'https://hesaplayim.com/blog',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...blogSlugs.map((slug) => ({
+      url: `https://hesaplayim.com/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ];
+
   return [
     {
       url: 'https://hesaplayim.com',
@@ -48,5 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     ...toolPages,
+    ...blogPages,
   ];
 }
