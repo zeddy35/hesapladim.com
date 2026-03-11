@@ -49,17 +49,17 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                <Link href="/gizlilik-politikasi" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                   Gizlilik Politikası
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                <Link href="/iletisim" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                   İletişim
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                <Link href="/hakkimizda" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                   Hakkımızda
                 </Link>
               </li>
