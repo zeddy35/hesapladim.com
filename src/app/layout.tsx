@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -67,6 +68,20 @@ const websiteSchema = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-QZJSGGKZ72"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QZJSGGKZ72');
+          `}
+        </Script>
+      </head>
       <body className={`${jakarta.className} bg-slate-50 text-slate-900 flex flex-col min-h-screen`}>
         <script
           type="application/ld+json"
