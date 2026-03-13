@@ -197,10 +197,12 @@ export default function SearchBar({
             <div className="p-2">
               {Array.from(grouped.entries()).map(([catId, items]) => {
                 const cat = CATEGORY_MAP.get(catId)!;
+                const CatIcon = cat.icon;
                 return (
                   <div key={catId} className="mb-2 last:mb-0">
-                    <p className="text-[11px] font-semibold text-slate-400 px-3 py-1">
-                      {cat.emoji} {cat.name}
+                    <p className="text-[11px] font-semibold text-slate-400 px-3 py-1 flex items-center gap-1">
+                      <CatIcon className="h-3 w-3" />
+                      {cat.name}
                     </p>
                     {items.map(r => {
                       const flatIdx = results.indexOf(r);

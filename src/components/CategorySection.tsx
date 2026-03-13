@@ -7,12 +7,14 @@ interface Props {
 }
 
 export default function CategorySection({ category, startIndex = 0 }: Props) {
+  const CatIcon = category.icon;
   return (
     <section>
       <div className="flex items-center gap-3 mb-5">
         <div className={`h-5 w-1 rounded-full ${category.bgBarClass}`} />
-        <h2 className="text-base font-bold text-slate-700">
-          {category.emoji} {category.name}
+        <h2 className="text-base font-bold text-slate-700 flex items-center gap-1.5">
+          <CatIcon className={`h-4 w-4 ${category.colorClass}`} />
+          {category.name}
         </h2>
         <span className="text-xs text-slate-400 font-medium">
           ({category.tools.length})

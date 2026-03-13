@@ -3,7 +3,9 @@ import {
   Timer, ArrowLeftRight, Building2, Activity, Flame, Baby, Target,
   Droplets, Footprints, Moon, BookOpen, GraduationCap, BarChart3,
   Calculator, Award, FileCheck, Home, TrendingUp, Stamp, Key, Bell,
-  Clock, Car, type LucideIcon,
+  Clock, Car,
+  Briefcase, Landmark, PiggyBank, HeartPulse, School, Calendar, Sigma, Sparkles,
+  type LucideIcon,
 } from 'lucide-react';
 
 export interface Tool {
@@ -20,7 +22,7 @@ export interface Tool {
 export interface Category {
   id: string;
   name: string;
-  emoji: string;
+  icon: LucideIcon;
   colorClass: string;
   borderClass: string;
   bgClass: string;
@@ -33,7 +35,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'calisma',
     name: 'Çalışan & Bordro',
-    emoji: '💼',
+    icon: Briefcase,
     colorClass: 'text-blue-600',
     borderClass: 'border-blue-500',
     bgClass: 'bg-blue-50',
@@ -77,7 +79,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'vergi',
     name: 'Vergi & Hukuk',
-    emoji: '🏛️',
+    icon: Landmark,
     colorClass: 'text-violet-600',
     borderClass: 'border-violet-500',
     bgClass: 'bg-violet-50',
@@ -131,7 +133,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'finans',
     name: 'Kişisel Finans',
-    emoji: '💰',
+    icon: PiggyBank,
     colorClass: 'text-cyan-600',
     borderClass: 'border-cyan-500',
     bgClass: 'bg-cyan-50',
@@ -160,7 +162,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'saglik',
     name: 'Sağlık & Yaşam',
-    emoji: '💊',
+    icon: HeartPulse,
     colorClass: 'text-red-600',
     borderClass: 'border-red-500',
     bgClass: 'bg-red-50',
@@ -229,7 +231,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'egitim',
     name: 'Eğitim & Sınav',
-    emoji: '🎓',
+    icon: School,
     colorClass: 'text-emerald-600',
     borderClass: 'border-emerald-500',
     bgClass: 'bg-emerald-50',
@@ -290,7 +292,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'zaman',
     name: 'Zaman & Tarih',
-    emoji: '📅',
+    icon: Calendar,
     colorClass: 'text-pink-600',
     borderClass: 'border-pink-500',
     bgClass: 'bg-pink-50',
@@ -326,7 +328,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'matematik',
     name: 'Matematik',
-    emoji: '🔧',
+    icon: Sigma,
     colorClass: 'text-amber-600',
     borderClass: 'border-amber-500',
     bgClass: 'bg-amber-50',
@@ -354,7 +356,7 @@ export const CATEGORIES: Category[] = [
   {
     id: 'yakinda',
     name: 'Yakında',
-    emoji: '🔮',
+    icon: Sparkles,
     colorClass: 'text-slate-500',
     borderClass: 'border-slate-300',
     bgClass: 'bg-slate-50',

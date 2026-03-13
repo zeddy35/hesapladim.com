@@ -1,27 +1,33 @@
 'use client';
 
+import { useEffect } from 'react';
+
+const SLOT_ID = '6416242523';
+
 interface AdBannerProps {
   slot: 'header' | 'sidebar' | 'mid' | 'footer';
-  size: '728x90' | '300x250' | '336x280';
+  size?: '728x90' | '300x250' | '336x280';
 }
 
-const SIZE_CLS: Record<string, string> = {
-  '728x90': 'w-full max-w-[728px] h-[90px]',
-  '300x250': 'w-[300px] h-[250px]',
-  '336x280': 'w-[336px] h-[280px]',
-};
+export default function AdBanner({ slot }: AdBannerProps) {
+  useEffect(() => {
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      console.error('AdSense error', e);
+    }
+  }, []);
 
-export default function AdBanner({ slot, size }: AdBannerProps) {
   return (
-    <div className="flex justify-center my-3">
-      <div
-        className={`${SIZE_CLS[size] ?? 'w-full h-[90px]'} bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 text-xs select-none`}
-        data-ad-slot={slot}
-        data-ad-size={size}
-      >
-        {/* AdSense — {slot} {size} */}
-        Reklam
-      </div>
+    <div className="flex justify-center my-3 overflow-hidden">
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-6165276073071269"
+        data-ad-slot={SLOT_ID}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }

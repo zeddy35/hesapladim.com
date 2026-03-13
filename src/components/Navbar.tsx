@@ -79,10 +79,13 @@ export default function Navbar() {
       {/* Mobile nav panel */}
       {mobileOpen && (
         <nav className="md:hidden border-t border-slate-100 bg-white max-h-[80vh] overflow-y-auto">
-          {MENU_CATEGORIES.map(cat => (
+          {MENU_CATEGORIES.map(cat => {
+            const CatIcon = cat.icon;
+            return (
             <div key={cat.id} className="px-4 py-4 border-b border-slate-50 last:border-0">
-              <p className={`text-[11px] font-bold uppercase tracking-widest mb-3 ${cat.colorClass}`}>
-                {cat.emoji} {cat.name}
+              <p className={`flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest mb-3 ${cat.colorClass}`}>
+                <CatIcon className="h-3 w-3" />
+                {cat.name}
               </p>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {cat.tools.map(tool => (
@@ -97,7 +100,8 @@ export default function Navbar() {
                 ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </nav>
       )}
     </header>
