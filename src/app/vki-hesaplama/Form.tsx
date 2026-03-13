@@ -83,6 +83,7 @@ export default function VkiForm() {
           <input
             type="number"
             min="1"
+            max="120"
             value={yas}
             onChange={(e) => setYas(e.target.value)}
             placeholder="Örn: 30"

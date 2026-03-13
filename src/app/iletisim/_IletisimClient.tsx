@@ -18,7 +18,7 @@ export default function IletisimClient() {
     const body = encodeURIComponent(
       `Ad Soyad: ${form.name}\nKonu: ${form.subject}\n\n${form.message}`,
     );
-    window.location.href = `mailto:zerdendereli@gmail.com?subject=${encodeURIComponent(form.subject)}&body=${body}`;
+    window.location.href = `mailto:info@hesaplayim.com?subject=${encodeURIComponent(form.subject)}&body=${body}`;
 }
 
   return (
@@ -98,7 +98,7 @@ export default function IletisimClient() {
             </div>
             <div>
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">E-posta</p>
-              <a href="mailto:zerdendereli@gmail.com" className="text-sm text-slate-700 hover:text-blue-600 transition-colors">
+              <a href="mailto:info@hesaplayim.com" className="text-sm text-slate-700 hover:text-blue-600 transition-colors">
                 info@hesaplayim.com
               </a>
             </div>
