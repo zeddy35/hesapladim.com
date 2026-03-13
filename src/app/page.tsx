@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TrendingUp, Sparkles, ArrowRight } from 'lucide-react';
 import { CATEGORIES } from '@/data/tools';
-import SearchBar from '@/components/SearchBar';
 import CategorySection from '@/components/CategorySection';
 
 export const metadata: Metadata = {

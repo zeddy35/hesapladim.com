@@ -34,9 +34,9 @@ export default function Footer() {
             <ul className="space-y-2">
               {FOOTER_CATS.map(cat => (
                 <li key={cat.id}>
-                  <span className="text-sm text-slate-500">
+                  <Link href={cat.tools[0]?.href ?? '/'} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                     {cat.name}
-                  </span>
+                  </Link>
                 </li>
               ))}
             </ul>

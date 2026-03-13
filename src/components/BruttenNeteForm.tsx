@@ -64,7 +64,7 @@ export default function BruttenNeteForm() {
   }, [hesapla]);
 
   const paylasmMetni = sonuc
-    ? `Brüt: ${formatCurrency(sonuc.brutMaas)} → Net: ${formatCurrency(sonuc.netMaas)} | bordrohesapla.com`
+    ? `Brüt: ${formatCurrency(sonuc.brutMaas)} → Net: ${formatCurrency(sonuc.netMaas)} | hesaplayim.com`
     : '';
 
   return (
