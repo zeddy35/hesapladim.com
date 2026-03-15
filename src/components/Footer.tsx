@@ -54,6 +54,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/kullanim-sartlari" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                  Kullanım Şartları
+                </Link>
+              </li>
+              <li>
                 <Link href="/iletisim" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                   İletişim
                 </Link>
