@@ -12,9 +12,9 @@ declare global {
 // aşağıdaki ID'leri güncelleyin.
 const SLOT_IDS: Record<string, string> = {
   header:  '4980823614',
-  sidebar: '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
-  mid:     '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
-  footer:  '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
+  sidebar: '9859547526',
+  mid:     '8856489442',
+  footer:  '9490914266',
 };
 
 interface AdBannerProps {
