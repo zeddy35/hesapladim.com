@@ -11,10 +11,10 @@ declare global {
 // Her placement için AdSense konsolunda ayrı reklam birimi oluşturup
 // aşağıdaki ID'leri güncelleyin.
 const SLOT_IDS: Record<string, string> = {
-  header:  '6416242523',
-  sidebar: '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
-  mid:     '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
-  footer:  '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
+  header:  '4980823614',
+  sidebar: '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
+  mid:     '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
+  footer:  '4980823614', // TODO: AdSense konsolunda ayrı birim oluşturun
 };
 
 interface AdBannerProps {
