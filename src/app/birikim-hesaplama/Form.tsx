@@ -40,7 +40,7 @@ export default function BirikimForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <AdBanner slot="header" size="728x90" />
+      <AdBanner slot="header" />
 
       <h1 className="text-3xl font-extrabold text-blue-800 mt-6 mb-2">Birikim Hesaplama</h1>
       <p className="text-gray-500 mb-8">
@@ -108,7 +108,7 @@ export default function BirikimForm() {
         {/* Sonuç */}
         <div className="flex-1 flex flex-col gap-6">
           <div className="flex justify-center lg:justify-start">
-            <AdBanner slot="sidebar" size="300x250" />
+            <AdBanner slot="sidebar" />
           </div>
 
           {sonuc && (
@@ -167,7 +167,7 @@ export default function BirikimForm() {
         </div>
       </div>
 
-      <AdBanner slot="mid" size="728x90" />
+      <AdBanner slot="mid" />
 
       <section className="mt-10 max-w-3xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-5">Sık Sorulan Sorular</h2>
@@ -197,7 +197,7 @@ export default function BirikimForm() {
         </div>
       </section>
 
-      <AdBanner slot="footer" size="728x90" />
+      <AdBanner slot="footer" />
     </div>
   );
 }

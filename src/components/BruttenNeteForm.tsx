@@ -69,7 +69,7 @@ export default function BruttenNeteForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <AdBanner slot="header" size="728x90" />
+      <AdBanner slot="header" />
       <h1 className="text-3xl font-extrabold text-blue-800 mb-2 mt-4">
         Brütten Nete Maaş Hesaplama 2026
       </h1>
@@ -145,7 +145,7 @@ export default function BruttenNeteForm() {
         {sonuc && (
           <div className="flex-1 space-y-6 print-section">
             <div className="flex justify-center lg:justify-start">
-              <AdBanner slot="sidebar" size="300x250" />
+              <AdBanner slot="sidebar" />
             </div>
 
             {/* Net maaş kartı */}
@@ -236,7 +236,7 @@ export default function BruttenNeteForm() {
         )}
       </div>
 
-      <AdBanner slot="mid" size="728x90" />
+      <AdBanner slot="mid" />
 
       {/* FAQ JSON-LD */}
       <script
@@ -274,7 +274,7 @@ export default function BruttenNeteForm() {
           }),
         }}
       />
-      <AdBanner slot="footer" size="728x90" />
+      <AdBanner slot="footer" />
     </div>
   );
 }

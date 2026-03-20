@@ -3,6 +3,7 @@ import BruttenNeteForm from '@/components/BruttenNeteForm';
 import { FaqSchema } from '@/components/FaqSchema';
 import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
 import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
@@ -57,6 +58,20 @@ export default function BruttenNetePage() {
           ]}
         />
         <BruttenNeteForm />
+        <InfoSection
+          title="Brütten Nete Maaş Nasıl Hesaplanır?"
+          intro="Brütten nete hesaplama, işverenin belirlediği brüt maaştan yasal kesintiler düşüldükten sonra çalışanın eline geçen net maaşı bulmak için kullanılır. Türkiye'de kesintiler; SGK işçi payı (%14), işsizlik sigortası işçi payı (%1), gelir vergisi (artan oranlı %15-40) ve damga vergisinden (%0,759) oluşur. Asgari geçim indirimi, gelir vergisinden düşülerek net maaşı artırır. Hesaplama, kümülatif vergi matrahına göre değişkenlik gösterir."
+          formula="Net Maaş = Brüt - SGK İşçi (%14) - İşsizlik (%1) - Gelir Vergisi - Damga Vergisi + AGİ"
+          steps={[
+            'Brüt maaşı girin',
+            'SGK ve işsizlik primlerini düşün',
+            'Gelir vergisi matrahını hesaplayın',
+            'Gelir vergisini artan oranlı dilimlerle hesaplayın',
+            'Damga vergisini çıkarın',
+            'AGİ ekleyerek net maaşa ulaşın',
+          ]}
+          faqs={faqs}
+        />
         <RelatedTools slug="brutten-nete" />
       </div>
     </>

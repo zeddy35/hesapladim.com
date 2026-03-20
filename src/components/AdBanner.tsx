@@ -8,11 +8,17 @@ declare global {
   }
 }
 
-const SLOT_ID = '6416242523';
+// Her placement için AdSense konsolunda ayrı reklam birimi oluşturup
+// aşağıdaki ID'leri güncelleyin.
+const SLOT_IDS: Record<string, string> = {
+  header:  '6416242523',
+  sidebar: '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
+  mid:     '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
+  footer:  '6416242523', // TODO: AdSense konsolunda ayrı birim oluşturun
+};
 
 interface AdBannerProps {
   slot: 'header' | 'sidebar' | 'mid' | 'footer';
-  size?: '728x90' | '300x250' | '336x280';
 }
 
 export default function AdBanner({ slot }: AdBannerProps) {
@@ -30,7 +36,7 @@ export default function AdBanner({ slot }: AdBannerProps) {
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-6165276073071269"
-        data-ad-slot={SLOT_ID}
+        data-ad-slot={SLOT_IDS[slot]}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />

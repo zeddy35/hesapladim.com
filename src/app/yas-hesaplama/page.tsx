@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import YasForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Yaş Hesaplama - Gün Ay Yıl',
@@ -14,53 +19,48 @@ export const metadata: Metadata = {
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Yaş nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yaş, bugünün yılından doğum yılı çıkarılarak hesaplanır. Henüz doğum günü gelmemişse bir çıkarılır. Bu araç gün, ay ve yıl cinsinden tam yaşı otomatik hesaplar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Burç tarihleri nelerdir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Koç: 21 Mart–19 Nisan | Boğa: 20 Nisan–20 Mayıs | İkizler: 21 Mayıs–20 Haziran | Yengeç: 21 Haz–22 Tem | Aslan: 23 Tem–22 Ağu | Başak: 23 Ağu–22 Eyl | Terazi: 23 Eyl–22 Eki | Akrep: 23 Eki–21 Kas | Yay: 22 Kas–21 Ara | Oğlak: 22 Ara–19 Oca | Kova: 20 Oca–18 Şub | Balık: 19 Şub–20 Mar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Doğum günüme kaç gün kaldı?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Doğum tarihinizi girin; araç bir sonraki doğum gününüze kalan gün sayısını otomatik hesaplar ve "🎂 Doğum günün X gün sonra!" şeklinde gösterir.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Kaç günlük olduğumu nasıl öğrenirim?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Doğum tarihinizden bugüne kadar geçen tam gün sayısı, tarih farkı formülüyle hesaplanır: (Bugün − Doğum Tarihi) / 86.400.000 milisaniye. Bu araç bu hesabı otomatik yapar.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: 'Yaşım neden tam yıl olarak değil gösteriliyor?',
+    a: 'Araç doğum gününüzü geçip geçmediğinizi kontrol eder. Henüz bu yılki doğum günü gelmediyse tamamlanan yaşınız bir önceki yıla göre hesaplanır.',
+  },
+  {
+    q: 'Burç hesaplama nasıl yapılıyor?',
+    a: 'Doğum tarihinizin ay ve gün bilgisine göre 12 burç aralığından hangisine girdiği belirlenir. Örneğin 21 Mart–19 Nisan arası Koç burcudur.',
+  },
+  {
+    q: 'Çin burcu nasıl hesaplanır?',
+    a: 'Çin burcunuzun belirlenmesinde doğum yılınız esas alınır. 12 yıllık döngüde her yıl farklı bir hayvana karşılık gelir (Fare, Öküz, Kaplan vb.).',
+  },
+];
 
 export default function YasHesaplamaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Yaş Hesaplama', url: 'https://hesaplayim.com/yas-hesaplama' },
+        ]}
       />
-      <YasForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Zaman & Tarih', href: '/#zaman' },
+            { label: 'Yaş Hesaplama' },
+          ]}
+        />
+        <YasForm />
+        <InfoSection
+          title="Yaş Hesaplama Nasıl Çalışır?"
+          intro="Doğum tarihinizden bugüne kadar geçen tam yıl, ay ve gün sayısı hesaplanır. Burç ve Çin burcu bilgisi de otomatik olarak gösterilir."
+          formula="Yaş = Bugün − Doğum Tarihi (yıl, ay, gün cinsinden)"
+          faqs={faqs}
+        />
+        <RelatedTools slug="yas-hesaplama" />
+      </div>
     </>
   );
 }

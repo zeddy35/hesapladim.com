@@ -5,7 +5,7 @@ import { CATEGORIES } from '@/data/tools';
 import CategorySection from '@/components/CategorySection';
 
 export const metadata: Metadata = {
-  title: "Hesaplayim.com | Türkiye'nin En Hızlı Hesaplama Platformu",
+  title: "Hesaplayım | Türkiye'nin En Hızlı Hesaplama Platformu",
   description:
     '2026 güncel hesaplama araçları: brütten nete maaş, KDV, TYT puanı, kira artış, tapu harcı ve 30+ araç.',
 };

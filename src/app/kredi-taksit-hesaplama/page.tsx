@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import KrediTaksitForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Kredi Taksit Hesaplama 2026 | Aylık Taksit & Faiz',
@@ -14,37 +19,54 @@ export const metadata: Metadata = {
   },
 };
 
+const faqs = [
+  {
+    q: 'BSMV ve KKDF nedir?',
+    a: 'BSMV (Banka ve Sigorta Muameleleri Vergisi) %5 oranında faiz üzerinden alınır. KKDF (Kaynak Kullanımını Destekleme Fonu) tüketici kredilerinde %15\'tir. Bu kesintiler etkin faiz oranını yükseltir.',
+  },
+  {
+    q: 'Sabit ve değişken faizli kredi farkı nedir?',
+    a: 'Sabit faizli kredide taksitler vade boyunca değişmez. Değişken faizli kredide ise piyasa faizine göre taksit tutarları artabilir veya azalabilir.',
+  },
+  {
+    q: 'Erken ödeme yapmak avantajlı mı?',
+    a: 'Erken kapatma hem faiz maliyetini azaltır hem de kalan taksit yükünü ortadan kaldırır; ancak bazı bankalar erken ödeme ücreti talep edebilir.',
+  },
+];
+
 export default function KrediTaksitPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Kredi taksiti nasıl hesaplanır?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Eşit taksitli formül: Taksit = P x r(1+r)^n / ((1+r)^n - 1). P=anapara, r=aylık faiz oranı (yıllık/12), n=vade ay sayısı.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Toplam kredi faizi nasıl hesaplanır?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Toplam faiz = Toplam Ödeme - Anapara. Toplam ödeme = Aylık Taksit x Vade (ay).',
-                },
-              },
-            ],
-          }),
-        }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Kredi Taksit Hesaplama', url: 'https://hesaplayim.com/kredi-taksit-hesaplama' },
+        ]}
       />
-      <KrediTaksitForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Kişisel Finans', href: '/#finans' },
+            { label: 'Kredi Taksit Hesaplama' },
+          ]}
+        />
+        <KrediTaksitForm />
+        <InfoSection
+          title="Kredi Taksiti Nasıl Hesaplanır?"
+          intro="Kredi taksit hesaplama, alınan kredinin aylık taksit miktarını, toplam geri ödeme tutarını ve toplam faiz maliyetini hesaplamak için kullanılır. Türkiye'de bireysel kredilerde BSMV ve KKDF eklendiğinde etkin faiz oranı ilan edilen faiz oranından yüksek olabilir."
+          formula="Taksit = P × [r(1+r)^n] / [(1+r)^n - 1] | P=anapara, r=aylık faiz, n=taksit sayısı"
+          steps={[
+            'Kredi tutarını girin',
+            'Yıllık veya aylık faiz oranını girin',
+            'Vadeyi (ay) seçin',
+            'Aylık taksit ve toplam geri ödeme tutarını görün',
+          ]}
+          faqs={faqs}
+        />
+        <RelatedTools slug="kredi-taksit-hesaplama" />
+      </div>
     </>
   );
 }

@@ -1,44 +1,70 @@
 import type { Metadata } from 'next';
 import IhbarTazminatiForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'İhbar Tazminatı Hesaplama 2026 | İş Kanunu 17. Madde',
   description:
     'İşe giriş ve çıkış tarihinizden ihbar süresini ve tazminat tutarını hesaplayın. İş Kanunu 17. madde.',
-  alternates: { canonical: 'https://hesapladim.com/ihbar-tazminati-hesaplama' },
+  alternates: { canonical: 'https://hesaplayim.com/ihbar-tazminati-hesaplama' },
+  openGraph: {
+    title: 'İhbar Tazminatı Hesaplama 2026 | İş Kanunu 17. Madde',
+    description: 'İhbar süresini ve tazminat tutarını İş Kanunu 17. maddeye göre hesaplayın.',
+    url: 'https://hesaplayim.com/ihbar-tazminati-hesaplama',
+  },
 };
+
+const faqs = [
+  {
+    q: 'İhbar tazminatı ne zaman ödenir?',
+    a: 'Taraflardan biri ihbar süresine uymadan sözleşmeyi sonlandırırsa ihbar tazminatı ödemek zorundadır. Hem işveren hem işçi bu yükümlülüğe tabidir.',
+  },
+  {
+    q: 'İhbar tazminatından vergi kesilir mi?',
+    a: 'Evet. İhbar tazminatı gelir vergisine ve damga vergisine tabidir; kıdem tazminatından farklı olarak gelir vergisinden muaf değildir.',
+  },
+  {
+    q: 'Kıdem ve ihbar tazminatı aynı anda alınabilir mi?',
+    a: 'Evet. Her iki tazminat birbirinden bağımsızdır ve aynı anda talep edilebilir.',
+  },
+];
 
 export default function IhbarTazminatiPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'İhbar tazminatı ne kadar?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'İhbar tazminatı; çalışma süresine göre belirlenen ihbar süresi (2–8 hafta) × günlük brüt ücret formülüyle hesaplanır. Günlük brüt, aylık brütün 30\'a bölümüdür.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'İhbar süresi kaç hafta?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: '0–6 ay: 2 hafta, 6 ay–1,5 yıl: 4 hafta, 1,5–3 yıl: 6 hafta, 3 yıl ve üzeri: 8 hafta.',
-                },
-              },
-            ],
-          }),
-        }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'İhbar Tazminatı Hesaplama', url: 'https://hesaplayim.com/ihbar-tazminati-hesaplama' },
+        ]}
       />
-      <IhbarTazminatiForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Çalışan & Bordro', href: '/#calisma' },
+            { label: 'İhbar Tazminatı Hesaplama' },
+          ]}
+        />
+        <IhbarTazminatiForm />
+        <InfoSection
+          title="İhbar Tazminatı Nasıl Hesaplanır?"
+          intro="İhbar tazminatı, iş sözleşmesini fesheden tarafın yasal ihbar süresine uymadığında ödemesi gereken tazminattır. 4857 sayılı İş Kanunu Madde 17'ye göre kıdeme bağlı ihbar süreleri uygulanır."
+          formula="İhbar Tazminatı = Brüt Günlük Ücret × İhbar Süresi (gün)"
+          steps={[
+            'Kıdeme göre ihbar süresi belirlenir (6 ay altı: 2 hafta, 1.5 yıla kadar: 4 hafta, 3 yıla kadar: 6 hafta, üzeri: 8 hafta)',
+            'Günlük brüt ücret hesaplanır (aylık brüt ÷ 30)',
+            'İhbar tazminatı = günlük ücret × ihbar günü',
+          ]}
+          faqs={faqs}
+        />
+        <RelatedTools slug="ihbar-tazminati-hesaplama" />
+      </div>
     </>
   );
 }

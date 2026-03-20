@@ -1,48 +1,61 @@
 import type { Metadata } from 'next';
 import YuzdelikForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'YKS Yüzdelik Dilim Hesaplama 2024 | TYT SAY EA SOZ DIL',
+  title: 'YKS Yüzdelik Dilim Hesaplama 2026 | TYT SAY EA SOZ DIL',
   description:
-    'YKS puanınıza göre tahmini yüzdelik diliminizi ve sıralamanızı hesaplayın. TYT, Sayısal, EA, Sözel ve Dil sınavları için 2024 verilerine dayalı tahmin.',
-  alternates: { canonical: 'https://hesapladim.com/yks-yuzdelik-dilim' },
+    'YKS puanınıza göre tahmini yüzdelik diliminizi ve sıralamanızı hesaplayın. TYT, Sayısal, EA, Sözel ve Dil sınavları için 2026 verilerine dayalı tahmin.',
+  alternates: { canonical: 'https://hesaplayim.com/yks-yuzdelik-dilim' },
   openGraph: {
-    title: 'YKS Yüzdelik Dilim Hesaplama 2024',
+    title: 'YKS Yüzdelik Dilim Hesaplama 2026',
     description: 'Puanınıza göre sıralama ve yüzdelik dilim tahmini.',
+    url: 'https://hesaplayim.com/yks-yuzdelik-dilim',
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'YKS yüzdelik dilim ne anlama gelir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yüzdelik dilim, sınava giren tüm adaylar içinde kaç kişinin sizden düşük puan aldığını gösterir. Örneğin %10\'luk dilimde olmak, sınava giren adayların %90\'ından yüksek puan aldığınız anlamına gelir.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Hangi dilim hangi üniversiteye denk gelir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Genel olarak ilk %1 prestijli devlet üniversitelerinin popüler bölümleri, ilk %10 iyi devlet üniversiteleri, ilk %30 orta düzey devlet üniversiteleri için yeterli kabul edilebilir. Ancak kesin sonuç için ÖSYM Atlas\'ı kullanın.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: 'Yüzdelik dilim ne anlama gelir?',
+    a: "Yüzdelik dilim %1, aday havuzunun en iyi %1'inde olduğunuz anlamına gelir. Düşük yüzdelik dilim daha başarılı, yüksek olan daha az başarılıdır.",
+  },
+  {
+    q: 'Kaçıncı sıra hangi okullara karşılık gelir?',
+    a: "Her puan türü ve bölüm için taban puanlar farklıdır. ÖSYM'nin yerleştirme kılavuzunu ve tercih robotlarını kullanarak araştırın.",
+  },
+];
 
 export default function YksYuzdelikDilimPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'YKS Yüzdelik Dilim', url: 'https://hesaplayim.com/yks-yuzdelik-dilim' },
+        ]}
       />
-      <YuzdelikForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Eğitim & Sınav', href: '/#egitim' },
+            { label: 'YKS Yüzdelik Dilim' },
+          ]}
+        />
+        <YuzdelikForm />
+        <InfoSection
+          title="YKS Yüzdelik Dilim Nasıl Hesaplanır?"
+          intro="YKS yüzdelik dilim, sınava giren adaylar arasında kaçıncı yüzdelikte bulunduğunuzu gösterir. Puan türüne göre hesaplanır ve tercih sürecinde kritik bir göstergedir."
+          formula="Yüzdelik Dilim = (Sıralamanız ÷ Toplam Aday Sayısı) × 100"
+          faqs={faqs}
+        />
+        <RelatedTools slug="yks-yuzdelik-dilim" />
+      </div>
     </>
   );
 }

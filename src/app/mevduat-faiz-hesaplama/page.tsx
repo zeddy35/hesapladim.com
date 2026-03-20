@@ -1,44 +1,67 @@
 import type { Metadata } from 'next';
 import MevduatFaizForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Mevduat Faiz Hesaplama 2026 | Net Kazanç ve Stopaj',
   description:
     'Mevduat faiz hesaplama: anapara, faiz oranı ve vadeye göre net kazanç, stopaj vergisi ve vade karşılaştırması.',
-  alternates: { canonical: 'https://hesapladim.com/mevduat-faiz-hesaplama' },
+  alternates: { canonical: 'https://hesaplayim.com/mevduat-faiz-hesaplama' },
+  openGraph: {
+    title: 'Mevduat Faiz Hesaplama 2026 | Net Kazanç ve Stopaj',
+    description: 'Anapara ve faiz oranına göre net mevduat faiz gelirinizi hesaplayın.',
+    url: 'https://hesaplayim.com/mevduat-faiz-hesaplama',
+  },
 };
+
+const faqs = [
+  {
+    q: 'Mevduat faizinden vergi kesiliyor mu?',
+    a: 'Evet. TL mevduat faiz geliri üzerinden %15 stopaj vergisi kesilir. Bu oran değişebilir; güncel oran için bankanızı veya GİB\'i kontrol edin.',
+  },
+  {
+    q: 'Bileşik faiz mi basit faiz mi uygulanır?',
+    a: 'Mevduat hesapları genellikle vade sonunda basit faiz uygular. Yenilenen hesaplarda anaparaya faiz eklenerek bileşik etki oluşabilir.',
+  },
+];
 
 export default function MevduatFaizPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: 'Mevduat faizinden stopaj kesiliyor mu?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Evet. 2026 yılında TL mevduat faiz gelirlerinden %15 stopaj (tevkifat) kesilmektedir.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Mevduat faizi nasıl hesaplanır?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Brüt faiz = Anapara × (Faiz Oranı / 100) × (Vade / 365) formülüyle hesaplanır. Stopaj düşüldükten sonra net kazanç elde edilir.',
-                },
-              },
-            ],
-          }),
-        }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Mevduat Faiz Hesaplama', url: 'https://hesaplayim.com/mevduat-faiz-hesaplama' },
+        ]}
       />
-      <MevduatFaizForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Kişisel Finans', href: '/#finans' },
+            { label: 'Mevduat Faiz Hesaplama' },
+          ]}
+        />
+        <MevduatFaizForm />
+        <InfoSection
+          title="Mevduat Faizi Nasıl Hesaplanır?"
+          intro="Mevduat faizi; anapara, yıllık faiz oranı ve vade süresine göre hesaplanır. Türkiye'de mevduat faizi geliri stopaj vergisine (genellikle %15) tabidir."
+          formula="Brüt Faiz = Anapara × Faiz Oranı × (Gün ÷ 365)   |   Net Faiz = Brüt Faiz × (1 − Stopaj Oranı)"
+          steps={[
+            'Anapara tutarını girin',
+            'Yıllık faiz oranını girin',
+            'Vade süresini gün olarak belirtin',
+            'Brüt ve net faiz geliri hesaplanır',
+          ]}
+          faqs={faqs}
+        />
+        <RelatedTools slug="mevduat-faiz-hesaplama" />
+      </div>
     </>
   );
 }

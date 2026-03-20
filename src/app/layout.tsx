@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     siteName: 'Hesaplayım',
     title: "Hesaplayım | Türkiye'nin Hesaplama Platformu",
     description: '30+ hesaplama aracı. Maaş, vergi, sınav puanı ve daha fazlası.',
-    images: [{ url: '/logo.svg', width: 512, height: 512 }],
+    images: [{ url: '/og?title=Hesaplay%C4%B1m', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hesaplayım',
     description: '30+ hesaplama aracı',
-    images: ['/logo.svg'],
+    images: ['/og?title=Hesaplay%C4%B1m'],
   },
   alternates: {
     canonical: 'https://hesaplayim.com',

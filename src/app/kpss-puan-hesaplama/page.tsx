@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import KpssForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'KPSS Puan Hesaplama 2026',
@@ -14,45 +19,53 @@ export const metadata: Metadata = {
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'KPSS P3 ve P10 farkı nedir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'KPSS P3 lisans mezunları için geçerli atama puanıdır. P10 önlisans mezunları için kullanılır. Her ikisi de GK ve GY testlerinden hesaplanır.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'KPSS P93 ve P94 nedir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'P93 ve P94, öğretmen atamasında kullanılan ÖABT (Öğretmenlik Alan Bilgisi Testi) puan türleridir. GK+GY (%30) ve ÖABT (%40) kombinasyonundan hesaplanır.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'KPSS\'de kaç net yapmalıyım?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: '2024 atamalarında P3\'te 70+ puan için GK ve GY\'de toplam 80-90 net hedeflenmelidir. Öğretmen ataması için P93/P94 en kritik puandır.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: "KPSS'de kaç soru var?",
+    a: "Lisans KPSS'sinde Genel Yetenek 60, Genel Kültür 60 soru olmak üzere toplam 120 soru bulunur. Her yanlış 0,25 doğruyu götürür.",
+  },
+  {
+    q: 'KPSS P3 ile P93 farkı nedir?',
+    a: 'P3: Ortaöğretim mezunları için. P93: Önlisans mezunları için. P94: Lisans mezunları için. Her puan türü farklı kadrolar için kullanılır.',
+  },
+  {
+    q: '60 KPSS puanı iyi midir?',
+    a: 'Atama yapılan kadrolara ve yıla göre değişmekle birlikte, genel idare hizmetleri kadrolarında 70+ puan çoğunlukla tercih edilir. Bazı özelleşmiş kadrolarda 60 puan yeterli olabilir.',
+  },
+];
 
 export default function KpssPuanHesaplamaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'KPSS Puan Hesaplama', url: 'https://hesaplayim.com/kpss-puan-hesaplama' },
+        ]}
       />
-      <KpssForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Eğitim & Sınav', href: '/#egitim' },
+            { label: 'KPSS Puan Hesaplama' },
+          ]}
+        />
+        <KpssForm />
+        <InfoSection
+          title="KPSS Puanı Nasıl Hesaplanır?"
+          intro="Kamu Personeli Seçme Sınavı (KPSS) puanı; Genel Yetenek ve Genel Kültür testlerindeki ham puanların ÖSYM standart puanlama formülüyle dönüştürülmesiyle elde edilir."
+          formula="Ham Puan = Doğru − (Yanlış × 0,25)   |   KPSS Puanı = 50 + 10 × ((Ham−Ortalama) ÷ StandartSapma)"
+          steps={[
+            'Genel Yetenek ve Genel Kültür testlerindeki doğru/yanlış sayılarını girin',
+            'Önlisans, lisans veya ortaöğretim türünü seçin',
+            'Tahmini KPSS puanı hesaplanır',
+          ]}
+          faqs={faqs}
+        />
+        <RelatedTools slug="kpss-puan-hesaplama" />
+      </div>
     </>
   );
 }

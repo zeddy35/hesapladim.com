@@ -1,64 +1,61 @@
 import type { Metadata } from 'next';
 import TarihFarkiForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Tarih Farkı Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
   description:
     'İki tarih arasındaki gün, ay, yıl, hafta farkını anında hesaplayın. Toplam saat ve dakika da gösterilir. Ücretsiz tarih hesaplama.',
-  alternates: { canonical: 'https://hesapladim.com/tarih-farki-hesaplama' },
+  alternates: { canonical: 'https://hesaplayim.com/tarih-farki-hesaplama' },
   openGraph: {
     title: 'Tarih Farkı Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
     description: 'İki tarih arasındaki gün, ay, yıl farkını ve X gün sonrasını hesaplayın.',
+    url: 'https://hesaplayim.com/tarih-farki-hesaplama',
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'İki tarih arasındaki gün farkı nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Başlangıç ve bitiş tarihlerini seçin; araç gün, ay, yıl, hafta, toplam saat ve dakika cinsinden farkı otomatik hesaplar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'X gün sonrası hangi tarihe denk gelir?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Başlangıç tarihini seçip "X gün sonra" alanına gün sayısını girin. Araç hedef tarihi otomatik olarak hesaplar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'İki tarih arasındaki iş günü nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Bu araç takvim günlerini hesaplar. Toplam gün sayısını 7\'ye bölüp hafta sayısını, kalan günü de iş günü tahmini için kullanabilirsiniz. Resmi tatiller ayrıca çıkarılmalıdır.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Kaç günde bir yılı doldurur?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Artık yıl olmayan yıllarda 365 gün, artık yıllarda 366 gün bulunur. Artık yıl: 4\'e bölünebilen ama 100\'e bölünemeyen ya da 400\'e bölünebilen yıllardır.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: 'Ay farkı hesaplarken kısmî aylar nasıl değerlendirilir?',
+    a: 'Araç tamamlanan ayları sayar; yarım aylar bir sonraki tam aya dahil edilmez.',
+  },
+  {
+    q: 'Kıdem tazminatı hesabında tarih farkı önemli mi?',
+    a: 'Evet. Çalışma süresi gün cinsinden hesaplanır ve 365\'e bölünerek yıl değeri bulunur. 1 günlük fark bile kıdem tutarını etkileyebilir.',
+  },
+];
 
 export default function TarihFarkiHesaplamaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Tarih Farkı Hesaplama', url: 'https://hesaplayim.com/tarih-farki-hesaplama' },
+        ]}
       />
-      <TarihFarkiForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Zaman & Tarih', href: '/#zaman' },
+            { label: 'Tarih Farkı Hesaplama' },
+          ]}
+        />
+        <TarihFarkiForm />
+        <InfoSection
+          title="İki Tarih Arasındaki Fark Nasıl Hesaplanır?"
+          intro="İki tarih arasındaki gün, hafta, ay ve yıl farkı hesaplanır. Sözleşme süreleri, kıdem hesabı, proje takibi gibi durumlarda kullanışlıdır."
+          formula="Fark = Bitiş Tarihi − Başlangıç Tarihi"
+          faqs={faqs}
+        />
+        <RelatedTools slug="tarih-farki-hesaplama" />
+      </div>
     </>
   );
 }

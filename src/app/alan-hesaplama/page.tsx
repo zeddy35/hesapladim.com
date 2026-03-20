@@ -1,64 +1,61 @@
 import type { Metadata } from 'next';
 import AlanForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Alan Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
   description:
     'Kare, dikdörtgen, üçgen, daire, trapez, paralelkenar ve elips için alan ve çevre hesaplama. Formül gösterimi ve birim seçimi.',
-  alternates: { canonical: 'https://hesapladim.com/alan-hesaplama' },
+  alternates: { canonical: 'https://hesaplayim.com/alan-hesaplama' },
   openGraph: {
     title: 'Alan Hesaplama 2026 | Hızlı ve Güncel Hesaplama',
     description: '7 şekil için alan ve çevre hesaplama aracı. Formül adım adım gösterilir.',
+    url: 'https://hesaplayim.com/alan-hesaplama',
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Dairenin alanı nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Daire alanı = π × r² formülüyle hesaplanır. r yarıçaptır. Örneğin r=5 cm için alan = π × 25 ≈ 78,54 cm².',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Üçgenin alanı nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Üçgen alanı = (taban × yükseklik) ÷ 2 formülüyle bulunur. Yükseklik, tabana dik olan uzunluktur.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Trapezin alanı nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Trapez alanı = ((a + b) ÷ 2) × h formülüyle bulunur. a ve b paralel kenarlar, h ise yüksekliktir.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Alan birimi dönüşümü nasıl yapılır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: '1 m² = 10.000 cm² = 1.000.000 mm². 1 km² = 1.000.000 m². Bu araçta birim seçimi yaparak sonucu istediğiniz birimde alabilirsiniz.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: 'Dönüm nedir, kaç metrekare eder?',
+    a: "1 dönüm = 1.000 m². Arazi alım satımında yaygın kullanılan Türkiye'ye özgü bir alandır.",
+  },
+  {
+    q: 'Ev metrekaresi nasıl hesaplanır?',
+    a: 'Her odanın uzunluk × genişlik (metre cinsinden) çarpımı alınır, tüm alanlar toplanır. Balkon ve ortak alanlar dahil mi sorusunu satıcınıza sormayı unutmayın.',
+  },
+];
 
 export default function AlanHesaplamaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Alan Hesaplama', url: 'https://hesaplayim.com/alan-hesaplama' },
+        ]}
       />
-      <AlanForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Matematik', href: '/#matematik' },
+            { label: 'Alan Hesaplama' },
+          ]}
+        />
+        <AlanForm />
+        <InfoSection
+          title="Alan Hesaplama Formülleri"
+          intro="Kare, dikdörtgen, üçgen, daire, yamuk ve daha fazla şeklin alanı tek araçta hesaplanır."
+          formula="Dikdörtgen: A = a × b   |   Üçgen: A = (taban × yükseklik) ÷ 2   |   Daire: A = π × r²"
+          faqs={faqs}
+        />
+        <RelatedTools slug="alan-hesaplama" />
+      </div>
     </>
   );
 }

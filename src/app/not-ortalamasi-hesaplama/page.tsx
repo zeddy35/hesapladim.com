@@ -1,48 +1,61 @@
 import type { Metadata } from 'next';
 import NotOrtalamasiForm from './Form';
+import { FaqSchema } from '@/components/FaqSchema';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import { InfoSection } from '@/components/InfoSection';
+import { RelatedTools } from '@/components/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Not Ortalaması Hesaplama | Ağırlıklı Ortalama ve GPA',
   description:
     'Ders notlarınızı ve kredilerini girerek ağırlıklı not ortalamanızı (GNO), harf notunuzu ve 4\'lük GPA değerinizi hesaplayın.',
-  alternates: { canonical: 'https://hesapladim.com/not-ortalamasi-hesaplama' },
+  alternates: { canonical: 'https://hesaplayim.com/not-ortalamasi-hesaplama' },
   openGraph: {
     title: 'Not Ortalaması Hesaplama | GNO ve GPA Hesapla',
     description: 'Ağırlıklı not ortalaması, harf notu ve GPA hesaplama aracı.',
+    url: 'https://hesaplayim.com/not-ortalamasi-hesaplama',
   },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Ağırlıklı not ortalaması nasıl hesaplanır?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Ağırlıklı ortalama = (Her ders notu × Kredisi) toplamı ÷ Toplam kredi sayısı. Örneğin 3 kredilik 80\'lik ders + 2 kredilik 90\'lık ders = (240+180)÷5 = 84 ortalama.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'GPA 4.0 ölçeğine nasıl dönüştürülür?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'AA (90-100) = 4.0, BA (85-89) = 3.5, BB (80-84) = 3.0, CB (75-79) = 2.5, CC (70-74) = 2.0 şeklinde dönüşüm yapılır.',
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    q: 'AA notu 4.00 mü?',
+    a: "Evet. Türkiye'deki standart 4'lük sistemde AA=4.00, BA=3.50, BB=3.00, CB=2.50, CC=2.00, DC=1.50, DD=1.00, FF=0.00'dır.",
+  },
+  {
+    q: 'GNO 3.00 iyi midir?',
+    a: 'GNO 3.00 (BB ortalaması) genel olarak iyi sayılır. Yüksek lisans başvurularında çoğu program en az 2.50-3.00 GNO şartı arar.',
+  },
+];
 
 export default function NotOrtalamasiHesaplamaPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Ana Sayfa', url: 'https://hesaplayim.com' },
+          { name: 'Not Ortalaması Hesaplama', url: 'https://hesaplayim.com/not-ortalamasi-hesaplama' },
+        ]}
       />
-      <NotOrtalamasiForm />
+      <FaqSchema faqs={faqs} />
+      <div className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+        <Breadcrumb
+          items={[
+            { label: 'Ana Sayfa', href: '/' },
+            { label: 'Eğitim & Sınav', href: '/#egitim' },
+            { label: 'Not Ortalaması Hesaplama' },
+          ]}
+        />
+        <NotOrtalamasiForm />
+        <InfoSection
+          title="Not Ortalaması Nasıl Hesaplanır?"
+          intro="Ağırlıklı not ortalaması (GNO/AGNO), her dersin kredisiyle çarpılmış notların toplamının toplam krediye bölünmesiyle hesaplanır."
+          formula="GNO = Σ(Harf Notu Katsayısı × Kredi) ÷ Toplam Kredi"
+          faqs={faqs}
+        />
+        <RelatedTools slug="not-ortalamasi-hesaplama" />
+      </div>
     </>
   );
 }

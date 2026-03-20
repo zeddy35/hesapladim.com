@@ -20,12 +20,11 @@ export default function UykuForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <AdBanner slot="header" size="728x90" />
-
       <h1 className="text-3xl font-extrabold text-blue-800 mt-6 mb-2">Uyku Saati Hesaplama 2026</h1>
       <p className="text-gray-500 mb-8">
         Uyanmak istediğiniz saati girerek uyku döngüsüne göre en ideal yatış saatlerini bulun.
       </p>
+      <AdBanner slot="header" />
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Input */}
@@ -61,7 +60,7 @@ export default function UykuForm() {
         {/* Sonuç */}
         <div className="flex-1 flex flex-col gap-6">
           <div className="flex justify-center lg:justify-start">
-            <AdBanner slot="sidebar" size="300x250" />
+            <AdBanner slot="sidebar" />
           </div>
 
           {sonuc && (
@@ -91,7 +90,7 @@ export default function UykuForm() {
         </div>
       </div>
 
-      <AdBanner slot="mid" size="728x90" />
+      <AdBanner slot="mid" />
 
       <section className="mt-12 max-w-3xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Sık Sorulan Sorular</h2>
@@ -112,7 +111,7 @@ export default function UykuForm() {
           ))}
         </div>
         <div className="mt-8 flex justify-center">
-          <AdBanner slot="footer" size="336x280" />
+          <AdBanner slot="footer" />
         </div>
       </section>
     </div>

@@ -94,7 +94,7 @@ export default function KidemTazminatiForm() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <AdBanner slot="header" size="728x90" />
+      <AdBanner slot="header" />
 
       <h1 className="text-3xl font-extrabold text-blue-800 mb-2 mt-4">
         Kıdem Tazminatı Hesaplama 2026
@@ -180,7 +180,7 @@ export default function KidemTazminatiForm() {
         {sonuc && (
           <div className="flex-1 space-y-6 print-section">
             <div className="flex justify-center lg:justify-start">
-              <AdBanner slot="sidebar" size="300x250" />
+              <AdBanner slot="sidebar" />
             </div>
 
             {/* Uyarı banner */}
@@ -262,7 +262,7 @@ export default function KidemTazminatiForm() {
         )}
       </div>
 
-      <AdBanner slot="mid" size="728x90" />
+      <AdBanner slot="mid" />
 
       {/* FAQ JSON-LD */}
       <script
@@ -300,7 +300,7 @@ export default function KidemTazminatiForm() {
           }),
         }}
       />
-      <AdBanner slot="footer" size="728x90" />
+      <AdBanner slot="footer" />
     </div>
   );
 }
