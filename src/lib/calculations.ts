@@ -1451,3 +1451,458 @@ export function otvHesapla(aracTipi: string, motorHacmi: number, fiyat: number):
     vergisizFiyat: Math.round(vergisizFiyat),
   };
 }
+
+// ─── Kredi Taksit Hesaplama ──────────────────────────────────────────────────
+export interface KrediTaksitSonucu {
+  aylikTaksit: number;
+  toplamOdeme: number;
+  toplamFaiz: number;
+  anaparaFaizOrani: number; // faiz / anapara %
+  odemeTablosu: Array<{ ay: number; taksit: number; anapara: number; faiz: number; kalanBakiye: number }>;
+}
+
+export function krediTaksit(
+  anapara: number,
+  yillikFaizOrani: number, // %
+  vadeAy: number,
+): KrediTaksitSonucu {
+  const aylikFaiz = yillikFaizOrani / 100 / 12;
+
+  let aylikTaksit: number;
+  if (aylikFaiz === 0) {
+    aylikTaksit = anapara / vadeAy;
+  } else {
+    aylikTaksit =
+      (anapara * aylikFaiz * Math.pow(1 + aylikFaiz, vadeAy)) /
+      (Math.pow(1 + aylikFaiz, vadeAy) - 1);
+  }
+
+  const toplamOdeme = aylikTaksit * vadeAy;
+  const toplamFaiz = toplamOdeme - anapara;
+  const anaparaFaizOrani = (toplamFaiz / anapara) * 100;
+
+  // Ödeme tablosu (ilk 12 ay + son ay)
+  const odemeTablosu: KrediTaksitSonucu['odemeTablosu'] = [];
+  let kalanBakiye = anapara;
+  for (let ay = 1; ay <= vadeAy; ay++) {
+    const faiz = kalanBakiye * aylikFaiz;
+    const anaparaOdemesi = aylikTaksit - faiz;
+    kalanBakiye -= anaparaOdemesi;
+    if (ay <= 12 || ay === vadeAy) {
+      odemeTablosu.push({
+        ay,
+        taksit: Math.round(aylikTaksit * 100) / 100,
+        anapara: Math.round(anaparaOdemesi * 100) / 100,
+        faiz: Math.round(faiz * 100) / 100,
+        kalanBakiye: Math.max(0, Math.round(kalanBakiye * 100) / 100),
+      });
+    }
+  }
+
+  return {
+    aylikTaksit: Math.round(aylikTaksit * 100) / 100,
+    toplamOdeme: Math.round(toplamOdeme * 100) / 100,
+    toplamFaiz: Math.round(toplamFaiz * 100) / 100,
+    anaparaFaizOrani: Math.round(anaparaFaizOrani * 100) / 100,
+    odemeTablosu,
+  };
+}
+
+// ─── Yakıt Maliyeti Hesaplama ────────────────────────────────────────────────
+export interface YakitMaliyetiSonucu {
+  toplamMaliyet: number;
+  kmBasinaMaliyet: number;
+  litreBaSinaKm: number;
+  harcananYakit: number; // litre
+}
+
+export function yakitMaliyeti(
+  mesafeKm: number,
+  tuketimL100km: number, // L/100km
+  litreFiyati: number,  // ₺
+): YakitMaliyetiSonucu {
+  const harcananYakit = (mesafeKm / 100) * tuketimL100km;
+  const toplamMaliyet = harcananYakit * litreFiyati;
+  const kmBasinaMaliyet = toplamMaliyet / mesafeKm;
+  const litreBaSinaKm = 100 / tuketimL100km;
+
+  return {
+    toplamMaliyet: Math.round(toplamMaliyet * 100) / 100,
+    kmBasinaMaliyet: Math.round(kmBasinaMaliyet * 100) / 100,
+    litreBaSinaKm: Math.round(litreBaSinaKm * 100) / 100,
+    harcananYakit: Math.round(harcananYakit * 100) / 100,
+  };
+}
+
+// ─── Kar Zarar Hesaplama ─────────────────────────────────────────────────────
+export interface KarZararSonucu {
+  karZararTutari: number;
+  karZararYuzde: number;
+  karmi: boolean; // true = kar, false = zarar
+  kdvliFiyat?: number; // opsiyonel KDV dahil satış fiyatı (%20)
+}
+
+export function karZararHesapla(
+  alisFiyati: number,
+  satisFiyati: number,
+  kdvOrani?: number, // % (opsiyonel)
+): KarZararSonucu {
+  const fark = satisFiyati - alisFiyati;
+  const karZararYuzde = alisFiyati > 0 ? (fark / alisFiyati) * 100 : 0;
+  const kdvliFiyat = kdvOrani !== undefined ? satisFiyati * (1 + kdvOrani / 100) : undefined;
+
+  return {
+    karZararTutari: Math.round(fark * 100) / 100,
+    karZararYuzde: Math.round(karZararYuzde * 100) / 100,
+    karmi: fark >= 0,
+    kdvliFiyat: kdvliFiyat !== undefined ? Math.round(kdvliFiyat * 100) / 100 : undefined,
+  };
+}
+
+export function hedefKarMarjindanSatisFiyati(
+  alisFiyati: number,
+  hedefMarjYuzde: number,
+): number {
+  return Math.round((alisFiyati / (1 - hedefMarjYuzde / 100)) * 100) / 100;
+}
+
+// ─── İndirim Hesaplama ───────────────────────────────────────────────────────
+export interface IndirimSonucu {
+  indirimliTutar?: number;
+  tasarruf?: number;
+  indirimOrani?: number;
+  originalFiyat?: number;
+}
+
+export function indirimHesapla(mod: 'oran' | 'tutar' | 'oranBul' | 'asil', deger1: number, deger2: number): IndirimSonucu {
+  switch (mod) {
+    case 'oran': {
+      // deger1 = asıl fiyat, deger2 = indirim %
+      const tasarruf = deger1 * (deger2 / 100);
+      return {
+        indirimliTutar: Math.round((deger1 - tasarruf) * 100) / 100,
+        tasarruf: Math.round(tasarruf * 100) / 100,
+        indirimOrani: deger2,
+      };
+    }
+    case 'tutar': {
+      // deger1 = asıl fiyat, deger2 = indirim tutarı
+      const oran = deger1 > 0 ? (deger2 / deger1) * 100 : 0;
+      return {
+        indirimliTutar: Math.round((deger1 - deger2) * 100) / 100,
+        tasarruf: Math.round(deger2 * 100) / 100,
+        indirimOrani: Math.round(oran * 100) / 100,
+      };
+    }
+    case 'oranBul': {
+      // deger1 = asıl fiyat, deger2 = indirimli fiyat
+      const tasarruf = deger1 - deger2;
+      const oran = deger1 > 0 ? (tasarruf / deger1) * 100 : 0;
+      return {
+        indirimliTutar: Math.round(deger2 * 100) / 100,
+        tasarruf: Math.round(tasarruf * 100) / 100,
+        indirimOrani: Math.round(oran * 100) / 100,
+      };
+    }
+    case 'asil': {
+      // deger1 = indirimli fiyat, deger2 = indirim %
+      const asil = deger2 < 100 ? deger1 / (1 - deger2 / 100) : deger1;
+      const tasarruf = asil - deger1;
+      return {
+        originalFiyat: Math.round(asil * 100) / 100,
+        indirimliTutar: Math.round(deger1 * 100) / 100,
+        tasarruf: Math.round(tasarruf * 100) / 100,
+        indirimOrani: deger2,
+      };
+    }
+    default:
+      return {};
+  }
+}
+
+// ─── Kira Getirisi Hesaplama ─────────────────────────────────────────────────
+export interface KiraGetirisiSonucu {
+  brutGetiriYuzde: number;
+  netGetiriYuzde: number;
+  geriOdemeSuresiYil: number;
+  yillikKira: number;
+  yillikNetKira: number;
+}
+
+export function kiraGetirisi(
+  aylikKira: number,
+  mulkDegeri: number,
+  yillikGiderler: number, // aidat, emlak vergisi, sigorta vb.
+): KiraGetirisiSonucu {
+  const yillikKira = aylikKira * 12;
+  const brutGetiriYuzde = mulkDegeri > 0 ? (yillikKira / mulkDegeri) * 100 : 0;
+  const yillikNetKira = yillikKira - yillikGiderler;
+  const netGetiriYuzde = mulkDegeri > 0 ? (yillikNetKira / mulkDegeri) * 100 : 0;
+  const geriOdemeSuresiYil = yillikNetKira > 0 ? mulkDegeri / yillikNetKira : Infinity;
+
+  return {
+    brutGetiriYuzde: Math.round(brutGetiriYuzde * 100) / 100,
+    netGetiriYuzde: Math.round(netGetiriYuzde * 100) / 100,
+    geriOdemeSuresiYil: Math.round(geriOdemeSuresiYil * 10) / 10,
+    yillikKira: Math.round(yillikKira * 100) / 100,
+    yillikNetKira: Math.round(yillikNetKira * 100) / 100,
+  };
+}
+
+// ─── Birikim Hesaplama (Bileşik Faiz + Aylık Katkı) ─────────────────────────
+export interface BirikimSonucu {
+  toplamBirikim: number;
+  toplamFaizGetirisi: number;
+  toplamKatki: number;
+  grafikData: Array<{ ay: number; birikim: number; katkiTopla: number }>;
+}
+
+export function birikimHesapla(
+  baslangicTutari: number,
+  aylikKatki: number,
+  yillikFaizOrani: number, // %
+  sureYil: number,
+  bilesikFrekansi: number, // yılda kaç kez (12=aylık, 4=çeyreklik, 1=yıllık)
+): BirikimSonucu {
+  const r = yillikFaizOrani / 100;
+  const n = bilesikFrekansi;
+  const t = sureYil;
+  const totalAy = sureYil * 12;
+
+  const grafikData: BirikimSonucu['grafikData'] = [];
+  let mevcutTutar = baslangicTutari;
+  let katkiTopla = baslangicTutari;
+  const aylikFaizOrani = r / 12;
+
+  for (let ay = 1; ay <= totalAy; ay++) {
+    mevcutTutar = mevcutTutar * (1 + aylikFaizOrani) + aylikKatki;
+    katkiTopla += aylikKatki;
+    if (ay % 12 === 0 || ay === totalAy) {
+      grafikData.push({ ay, birikim: Math.round(mevcutTutar), katkiTopla: Math.round(katkiTopla) });
+    }
+  }
+
+  // Ana formül (bileşik frekansı ile)
+  const fvAnapara = baslangicTutari * Math.pow(1 + r / n, n * t);
+  const fvKatki = aylikKatki > 0
+    ? aylikKatki * ((Math.pow(1 + r / 12, 12 * t) - 1) / (r / 12))
+    : 0;
+  const toplamBirikim = fvAnapara + fvKatki;
+  const toplamKatki = baslangicTutari + aylikKatki * 12 * t;
+  const toplamFaizGetirisi = toplamBirikim - toplamKatki;
+
+  return {
+    toplamBirikim: Math.round(toplamBirikim * 100) / 100,
+    toplamFaizGetirisi: Math.round(toplamFaizGetirisi * 100) / 100,
+    toplamKatki: Math.round(toplamKatki * 100) / 100,
+    grafikData,
+  };
+}
+
+// ─── LGS Puan Hesaplama ──────────────────────────────────────────────────────
+export interface LgsDersNets {
+  turkce: number;
+  matematik: number;
+  fen: number;
+  inkilap: number;
+  din: number;
+  ingilizce: number;
+}
+
+export interface LgsSonucu {
+  netleri: LgsDersNets;
+  toplamNet: number;
+  lgsPuani: number;
+}
+
+const LGS_KATSAYILARI = {
+  turkce:    { soru: 20, dogru: 4.0,  yanlis: 1 },
+  matematik: { soru: 20, dogru: 4.0,  yanlis: 1 },
+  fen:       { soru: 20, dogru: 3.6,  yanlis: 1 },
+  inkilap:   { soru: 10, dogru: 2.2,  yanlis: 1 },
+  din:       { soru: 10, dogru: 1.6,  yanlis: 1 },
+  ingilizce: { soru: 10, dogru: 1.0,  yanlis: 1 },
+};
+
+export function lgsPuanHesapla(
+  dogru: LgsDersNets,
+  yanlis: LgsDersNets,
+): LgsSonucu {
+  const k = LGS_KATSAYILARI;
+  const netleri: LgsDersNets = {
+    turkce:    Math.max(0, dogru.turkce    - yanlis.turkce    / k.turkce.yanlis),
+    matematik: Math.max(0, dogru.matematik - yanlis.matematik / k.matematik.yanlis),
+    fen:       Math.max(0, dogru.fen       - yanlis.fen       / k.fen.yanlis),
+    inkilap:   Math.max(0, dogru.inkilap   - yanlis.inkilap   / k.inkilap.yanlis),
+    din:       Math.max(0, dogru.din       - yanlis.din       / k.din.yanlis),
+    ingilizce: Math.max(0, dogru.ingilizce - yanlis.ingilizce / k.ingilizce.yanlis),
+  };
+
+  const toplamNet = Object.values(netleri).reduce((a, b) => a + b, 0);
+
+  const hamPuan =
+    100 +
+    netleri.turkce    * k.turkce.dogru +
+    netleri.matematik * k.matematik.dogru +
+    netleri.fen       * k.fen.dogru +
+    netleri.inkilap   * k.inkilap.dogru +
+    netleri.din       * k.din.dogru +
+    netleri.ingilizce * k.ingilizce.dogru;
+
+  return {
+    netleri: {
+      turkce:    Math.round(netleri.turkce    * 100) / 100,
+      matematik: Math.round(netleri.matematik * 100) / 100,
+      fen:       Math.round(netleri.fen       * 100) / 100,
+      inkilap:   Math.round(netleri.inkilap   * 100) / 100,
+      din:       Math.round(netleri.din       * 100) / 100,
+      ingilizce: Math.round(netleri.ingilizce * 100) / 100,
+    },
+    toplamNet: Math.round(toplamNet * 100) / 100,
+    lgsPuani:  Math.max(100, Math.round(hamPuan * 100) / 100),
+  };
+}
+
+// ─── Vücut Yağ Oranı (US Navy Formülü) ──────────────────────────────────────
+export interface VucutYagSonucu {
+  yagOrani: number;
+  kategori: string;
+  kategoriRenk: string;
+  yagKutlesi: number;   // kg
+  yagsizKutle: number;  // kg (LBM)
+}
+
+export function vucutYagOrani(
+  cinsiyet: 'erkek' | 'kadin',
+  boyuCm: number,
+  belCm: number,
+  boyunCm: number,
+  kaliCm?: number, // sadece kadın
+  kilogram?: number, // opsiyonel (yağ kütlesi hesabı için)
+): VucutYagSonucu {
+  let oran: number;
+
+  if (cinsiyet === 'erkek') {
+    oran =
+      495 /
+        (1.0324 - 0.19077 * Math.log10(belCm - boyunCm) + 0.15456 * Math.log10(boyuCm)) -
+      450;
+  } else {
+    const kalca = kaliCm ?? 90;
+    oran =
+      495 /
+        (1.29579 - 0.35004 * Math.log10(belCm + kalca - boyunCm) + 0.221 * Math.log10(boyuCm)) -
+      450;
+  }
+
+  oran = Math.max(0, Math.min(70, oran));
+
+  let kategori: string;
+  let kategoriRenk: string;
+
+  if (cinsiyet === 'erkek') {
+    if (oran < 6)        { kategori = 'Temel Yağ';  kategoriRenk = 'text-blue-600'; }
+    else if (oran < 14)  { kategori = 'Atletik';    kategoriRenk = 'text-green-600'; }
+    else if (oran < 18)  { kategori = 'Fit';        kategoriRenk = 'text-emerald-600'; }
+    else if (oran < 25)  { kategori = 'Ortalama';   kategoriRenk = 'text-yellow-600'; }
+    else                 { kategori = 'Obez';        kategoriRenk = 'text-red-600'; }
+  } else {
+    if (oran < 14)       { kategori = 'Temel Yağ';  kategoriRenk = 'text-blue-600'; }
+    else if (oran < 21)  { kategori = 'Atletik';    kategoriRenk = 'text-green-600'; }
+    else if (oran < 25)  { kategori = 'Fit';        kategoriRenk = 'text-emerald-600'; }
+    else if (oran < 32)  { kategori = 'Ortalama';   kategoriRenk = 'text-yellow-600'; }
+    else                 { kategori = 'Obez';        kategoriRenk = 'text-red-600'; }
+  }
+
+  const kilo = kilogram ?? 70;
+  const yagKutlesi = kilo * (oran / 100);
+  const yagsizKutle = kilo - yagKutlesi;
+
+  return {
+    yagOrani:    Math.round(oran * 10) / 10,
+    kategori,
+    kategoriRenk,
+    yagKutlesi:  Math.round(yagKutlesi * 10) / 10,
+    yagsizKutle: Math.round(yagsizKutle * 10) / 10,
+  };
+}
+
+// ─── Enflasyon Hesaplama ─────────────────────────────────────────────────────
+export interface EnflasyonSonucu {
+  gelecekDeger: number;
+  degerKaybi: number;
+  satinAlmaGucuDegisimYuzde: number;
+  bugunkunDeger?: number; // geriye doğru hesaplama
+}
+
+export function enflasyonHesapla(
+  tutar: number,
+  enflasyonOrani: number, // %
+  yil: number,
+  mod: 'ileri' | 'geri', // ileri: bugünkü paranın ilerideki değeri, geri: ilerideki değerin bugünkü karşılığı
+): EnflasyonSonucu {
+  const faktor = Math.pow(1 + enflasyonOrani / 100, yil);
+
+  if (mod === 'ileri') {
+    const gelecekDeger = tutar * faktor;
+    const degerKaybi = gelecekDeger - tutar;
+    const satinAlmaGucuDegisimYuzde = -((1 - 1 / faktor) * 100);
+    return {
+      gelecekDeger: Math.round(gelecekDeger * 100) / 100,
+      degerKaybi:   Math.round(degerKaybi * 100) / 100,
+      satinAlmaGucuDegisimYuzde: Math.round(satinAlmaGucuDegisimYuzde * 100) / 100,
+    };
+  } else {
+    // geri: X TL'nin n yıl önceki satın alma gücü
+    const bugunkunDeger = tutar / faktor;
+    const degerKaybi = tutar - bugunkunDeger;
+    const satinAlmaGucuDegisimYuzde = -((1 - 1 / faktor) * 100);
+    return {
+      gelecekDeger: tutar,
+      bugunkunDeger: Math.round(bugunkunDeger * 100) / 100,
+      degerKaybi:   Math.round(degerKaybi * 100) / 100,
+      satinAlmaGucuDegisimYuzde: Math.round(satinAlmaGucuDegisimYuzde * 100) / 100,
+    };
+  }
+}
+
+// ─── Kıst Gün Maaş Hesaplama ─────────────────────────────────────────────────
+export interface KistGunSonucu {
+  gunlukBrutMaas: number;
+  kistBrutMaas: number;
+  kistNetMaas: number;
+  kistSgkIsci: number;
+  kistIssizlik: number;
+  kistGelirVergisi: number;
+  kistDamgaVergisi: number;
+}
+
+export function kistGunMaas(
+  aylikBrutMaas: number,
+  calistigiGunSayisi: number,
+  medeniDurum: MedeniDurum,
+  cocukSayisi: number,
+): KistGunSonucu {
+  const gunlukBrutMaas = aylikBrutMaas / 30;
+  const kistBrutMaas = gunlukBrutMaas * calistigiGunSayisi;
+
+  // Orantısal net hesaplama
+  const tamAy = grossToNet(aylikBrutMaas, medeniDurum, cocukSayisi);
+  const oran = kistBrutMaas / aylikBrutMaas;
+
+  const kistNetMaas = tamAy.netMaas * oran;
+  const kistSgkIsci = tamAy.sgkIsciBrut * oran;
+  const kistIssizlik = tamAy.issizlikIsciBrut * oran;
+  const kistGelirVergisi = tamAy.gelirVergisi * oran;
+  const kistDamgaVergisi = tamAy.damgaVergisi * oran;
+
+  return {
+    gunlukBrutMaas: Math.round(gunlukBrutMaas * 100) / 100,
+    kistBrutMaas:   Math.round(kistBrutMaas * 100) / 100,
+    kistNetMaas:    Math.round(kistNetMaas * 100) / 100,
+    kistSgkIsci:    Math.round(kistSgkIsci * 100) / 100,
+    kistIssizlik:   Math.round(kistIssizlik * 100) / 100,
+    kistGelirVergisi: Math.round(kistGelirVergisi * 100) / 100,
+    kistDamgaVergisi: Math.round(kistDamgaVergisi * 100) / 100,
+  };
+}

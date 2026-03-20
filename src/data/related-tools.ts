@@ -28,4 +28,17 @@ export const relatedTools: Record<string, string[]> = {
   'tarih-farki-hesaplama': ['yas-hesaplama', 'zaman-donusturme', 'uyku-saati-hesaplama'],
   'zaman-donusturme': ['tarih-farki-hesaplama', 'yas-hesaplama', 'oran-orantiyi-hesaplama'],
   'alan-hesaplama': ['oran-orantiyi-hesaplama', 'yuzde-hesaplama', 'tapu-harci-hesaplama'],
+  // Yeni araçlar
+  'netten-brute-hesaplama': ['brutten-nete', 'isveren-maliyeti-hesaplama', 'kist-gun-hesaplama'],
+  'isveren-maliyeti-hesaplama': ['brutten-nete', 'netten-brute-hesaplama', 'kist-gun-hesaplama'],
+  'kist-gun-hesaplama': ['brutten-nete', 'netten-brute-hesaplama', 'isveren-maliyeti-hesaplama'],
+  'kredi-taksit-hesaplama': ['mevduat-faiz-hesaplama', 'birikim-hesaplama', 'yuzde-hesaplama'],
+  'yakit-maliyeti-hesaplama': ['yuzde-hesaplama', 'kredi-taksit-hesaplama', 'indirim-hesaplama'],
+  'kar-zarar-hesaplama': ['indirim-hesaplama', 'kdv-hesaplama', 'yuzde-hesaplama'],
+  'indirim-hesaplama': ['kar-zarar-hesaplama', 'kdv-hesaplama', 'yuzde-hesaplama'],
+  'kira-getirisi-hesaplama': ['kira-artis-hesaplama', 'tapu-harci-hesaplama', 'enflasyon-hesaplama'],
+  'birikim-hesaplama': ['mevduat-faiz-hesaplama', 'kredi-taksit-hesaplama', 'enflasyon-hesaplama'],
+  'enflasyon-hesaplama': ['birikim-hesaplama', 'mevduat-faiz-hesaplama', 'kira-getirisi-hesaplama'],
+  'lgs-puan-hesaplama': ['tyt-puan-hesaplama', 'not-ortalamasi-hesaplama', 'kpss-puan-hesaplama'],
+  'vucut-yag-orani-hesaplama': ['vki-hesaplama', 'kalori-hesaplama', 'ideal-kilo-hesaplama'],
 };

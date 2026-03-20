@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react';
 
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 const SLOT_ID = '6416242523';
 
 interface AdBannerProps {
@@ -12,9 +18,9 @@ interface AdBannerProps {
 export default function AdBanner({ slot }: AdBannerProps) {
   useEffect(() => {
     try {
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-    } catch (e) {
-      console.error('AdSense error', e);
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      // AdSense yüklenemedi (reklam engelleyici vb.)
     }
   }, []);
 
