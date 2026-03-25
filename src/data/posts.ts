@@ -489,6 +489,231 @@ export const posts: Post[] = [
 <h2>Sonuç</h2>
 <p>Yıllık izin; kıdeme bağlı olarak 14 ila 26 iş günü arasında değişmekte; 18 yaş altı ve 50 yaş üstü çalışanlara ise kıdemsiz en az 20 gün tanınmaktadır. Kullanılmayan izinler hak kaybına yol açmaz ve iş sözleşmesi bitiminde ücret olarak ödenir. Çalışma haklarınız hakkında diğer hesaplamaları yapmak için <a href="/kidem-tazminati">Kıdem Tazminatı Hesaplama</a> veya <a href="/brutten-nete">Brütten Nete Maaş Hesaplama</a> araçlarımızı inceleyebilirsiniz.</p>`,
   },
+  {
+    slug: 'mtv-2026-motor-hacmine-gore-vergi',
+    title: '2026 MTV Tutarları: Motor Hacmine Göre Araç Vergisi',
+    description:
+      '197 Sayılı Motorlu Taşıtlar Vergisi Kanunu çerçevesinde 2026 yılı MTV tarifeleri, ödeme tarihleri ve e-Devlet üzerinden sorgulama rehberi.',
+    excerpt:
+      '2026 yılı MTV tutarları yeniden değerleme oranında güncellendi. Motor silindir hacminize göre ne kadar ödeyeceğinizi ve ödeme dönemlerini öğrenin.',
+    date: 'Mart 2026',
+    category: 'Vergi & Araç',
+    readingTime: '4 dk',
+    relatedTool: { name: 'MTV Hesaplama', href: '/mtv-hesaplama' },
+    faqs: [
+      {
+        q: 'MTV ne zaman ödenir?',
+        a: 'MTV yılda iki eşit taksitte ödenir: birinci taksit Ocak ayı sonuna, ikinci taksit Temmuz ayı sonuna kadar ödenmesi gerekir.',
+      },
+      {
+        q: '2026 MTV ne kadar arttı?',
+        a: '2026 yılı MTV tutarları, Maliye Bakanlığı tarafından açıklanan yeniden değerleme oranı (%43,93) uygulanarak bir önceki yıla göre artırılmıştır.',
+      },
+      {
+        q: "MTV'yi nasıl öderim?",
+        a: "e-Devlet, GİB'in dijital vergi dairesi, bankalar ve PTT şubeleri üzerinden ödeme yapılabilir.",
+      },
+      {
+        q: 'Araç satışında MTV borcu ne olur?',
+        a: 'Araç devri sırasında önceki sahibe ait ödenmemiş MTV borcu yeni sahibine geçer. Satın almadan önce borç sorgulama yapmanız önerilir.',
+      },
+    ],
+    content: `<p><strong>Motorlu Taşıtlar Vergisi (MTV)</strong>, <strong>197 Sayılı Motorlu Taşıtlar Vergisi Kanunu</strong> uyarınca motorlu kara taşıtı, uçak ve helikopterlerin sahiplerinden yılda iki kez alınan bir vergidir. 2026 yılında bu vergi yeniden değerleme oranında artırılmıştır.</p>
+
+<h2>MTV Neye Göre Hesaplanır?</h2>
+<p>Otomobiller için MTV tutarı iki temel kritere bağlıdır: <strong>motor silindir hacmi</strong> (cc) ve <strong>aracın modeli (yaşı)</strong>. Küçük motorlu, eski araçlar düşük; büyük motorlu, yeni araçlar yüksek MTV öder.</p>
+
+<h2>2026 MTV Tarifeleri (Otomobil)</h2>
+<p>Genel tabloya göre 0–1300 cc arası araçlar en düşük dilimde yer alırken 2001 cc ve üzeri araçlar en yüksek tarifeye tabidir. Her dilim içinde aracın 1–3 yaşından 16 yıl ve üzeri olmasına göre farklı tutarlar uygulanır.</p>
+
+<h2>MTV Ödeme Dönemleri</h2>
+<p>MTV yılda iki eşit taksitte ödenir:</p>
+<ul>
+  <li><strong>Birinci Taksit:</strong> Ocak ayının son günü mesai bitimine kadar</li>
+  <li><strong>İkinci Taksit:</strong> Temmuz ayının son günü mesai bitimine kadar</li>
+</ul>
+
+<h2>MTV Nasıl Ödenir?</h2>
+<p>Ödemeler aşağıdaki kanallardan yapılabilir:</p>
+<ul>
+  <li>e-Devlet kapısı üzerinden (kimlik doğrulamalı)</li>
+  <li>GİB'in İnteraktif Vergi Dairesi (ivd.gib.gov.tr)</li>
+  <li>Anlaşmalı bankalar ve ATM'ler</li>
+  <li>PTT şubeleri</li>
+</ul>
+
+<h2>MTV Borcu Sorgulama</h2>
+<p>e-Devlet üzerinden "MTV Borç Sorgulama" hizmetini kullanarak plakanıza bağlı tüm MTV borçlarını görüntüleyebilirsiniz. Araç satın almadan önce bu sorgulamayı mutlaka yapın; çünkü ödenmeyen borç yeni sahibe geçer.</p>
+
+<h2>Hesaplama Aracımız</h2>
+<p>Motor silindir hacmi ve araç yılını girerek 2026 yılı MTV tutarınızı hızlıca hesaplamak için <a href="/mtv-hesaplama">MTV Hesaplama</a> aracımızı kullanabilirsiniz.</p>`,
+  },
+  {
+    slug: 'emeklilik-sartlari-2026-prim-gun-yas',
+    title: 'Emeklilik Şartları 2026: Prim Günü ve Yaş Rehberi',
+    description:
+      '5510 Sayılı Sosyal Sigortalar Kanunu kapsamında 2026 emeklilik yaşı, prim gün şartları ve EYT sonrası güncel durum.',
+    excerpt:
+      '2026 yılında SGK emekliliği için kaç gün prim gerekiyor? Kadın ve erkek için farklılık gösteren yaş hadleri ve prim şartlarını öğrenin.',
+    date: 'Mart 2026',
+    category: 'Sosyal Güvenlik',
+    readingTime: '5 dk',
+    relatedTool: { name: 'Emeklilik Hesaplama', href: '/emeklilik-hesaplama' },
+    faqs: [
+      {
+        q: '2026 yılında emekli olmak için kaç prim günü gerekiyor?',
+        a: '2008 sonrası sigortalılar için genel kural 7.200 prim gün şartıdır. 1999 öncesi sigortalılar için 7.000 gün uygulanabilir; bu durum sigortalılık başlangıç tarihine göre değişir.',
+      },
+      {
+        q: 'Kadın ve erkek emeklilik yaşı arasında fark var mı?',
+        a: '2008 sonrası giriş için kadında 58, erkekte 60 yaş uygulanmaktadır. 2036 sonrasına doğru bu yaş hadlerinin 60/65\'e yükselmesi öngörülmektedir.',
+      },
+      {
+        q: 'EYT nedir?',
+        a: "Emeklilikte Yaşa Takılanlar (EYT) düzenlemesi, 8 Eylül 1999 öncesinde SGK'ya tescili olan ve prim gün şartını karşılayan çalışanların yaş haddi aranmaksızın emekli olabilmesine imkan tanımıştır.",
+      },
+      {
+        q: 'Prim gün sayımı nasıl öğrenirim?',
+        a: "e-Devlet kapısı üzerinden 'SGK Hizmet Dökümü' sorgusunu yaparak o ana kadar SGK'ya bildirilen toplam prim gün sayınıza ulaşabilirsiniz.",
+      },
+    ],
+    content: `<p><strong>5510 Sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu</strong> ve ilgili geçici maddeleri çerçevesinde Türkiye'de emeklilik hakkı; sigortalılık başlangıç tarihi, prim ödeme gün sayısı ve yaş olmak üzere üç temel kritere dayanmaktadır.</p>
+
+<h2>Sigortalılık Başlangıç Tarihine Göre Emeklilik Sistemi</h2>
+<p>Türk emeklilik sistemi, 1999 ve 2008 yıllarındaki köklü düzenlemelerle birkaç farklı rejime ayrılmıştır:</p>
+<ul>
+  <li><strong>1999 Öncesi Sigortalılar:</strong> Eski sisteme tabi olup yaş haddine ek olarak prim gün ve kıdem şartları uygulanır.</li>
+  <li><strong>1999-2007 Arası Sigortalılar:</strong> Geçiş dönemine tabi; kademeli artış öngörülmüştür.</li>
+  <li><strong>2008 ve Sonrası Sigortalılar:</strong> Yeni sisteme tabi; kadın 58, erkek 60 yaş ve en az 7.200 prim günü gerekmektedir.</li>
+</ul>
+
+<h2>EYT (Emeklilikte Yaşa Takılanlar) Düzenlemesi</h2>
+<p>2023 yılında yürürlüğe giren EYT düzenlemesiyle, 8 Eylül 1999 tarihi öncesinde SGK'ya tescili bulunan ve kıdem ile prim gün şartlarını karşılayan sigortalılar, yaş haddi aranmaksızın emeklilik hakkı kazanmıştır.</p>
+
+<h2>Prim Gün Sayısı Nasıl Hesaplanır?</h2>
+<p>Her ay tam çalışan bir sigortalı için 30 gün bildirilir. Kısmi çalışma, ücretsiz izin, devamsızlık gibi durumlarda gün sayısı azalır. Toplam prim günü; tüm sigortalılık dönemlerindeki bildirilen günlerin toplamından oluşur.</p>
+
+<h2>Erken Emeklilik Stratejileri</h2>
+<p>Eksik gün varsa, isteğe bağlı sigortalılık yoluyla prim ödemesi yapılarak bu açık kapatılabilir. Ayrıca askerlik ve doğum borçlanması gibi yollarla prim gün sayısı artırılabilir.</p>
+
+<h2>Hesaplama Aracımız</h2>
+<p>Doğum yılınızı, cinsiyetinizi ve prim gün sayınızı girerek emekliliğe hak kazanıp kazanmadığınızı anında öğrenmek için <a href="/emeklilik-hesaplama">Emeklilik Hesaplama</a> aracımızı kullanabilirsiniz.</p>`,
+  },
+  {
+    slug: 'sgk-prim-oranlari-isci-isveren-2026',
+    title: 'SGK Prim Oranları 2026: İşçi ve İşveren Payı',
+    description:
+      '5510 Sayılı Kanun uyarınca 2026 yılında geçerli SGK işçi ve işveren prim oranları, işsizlik sigortası kesintileri ve 5 puanlık teşvik uygulaması.',
+    excerpt:
+      'Brüt maaştan ne kadar SGK kesiliyor? 2026 yılı işçi ve işveren prim oranları ile toplam maliyet tablosu.',
+    date: 'Mart 2026',
+    category: 'Sosyal Güvenlik',
+    readingTime: '4 dk',
+    relatedTool: { name: 'SGK Prim Hesaplama', href: '/sgk-prim-hesaplama' },
+    faqs: [
+      {
+        q: '2026 SGK işçi prim oranı nedir?',
+        a: 'İşçi payı: SGK %14 + İşsizlik %1 = toplam %15 brüt ücret üzerinden kesilir.',
+      },
+      {
+        q: '2026 SGK işveren prim oranı nedir?',
+        a: 'İşveren payı: SGK %20,5 + İşsizlik %2 = %22,5. 5 puanlık teşvik uygulandığında SGK payı %15,5\'e iner.',
+      },
+      {
+        q: 'SGK prim tavanı nedir?',
+        a: "2026'da asgari ücret 33.030 TL olduğuna göre prim tavanı 33.030 × 7,5 = yaklaşık 247.725 TL'dir.",
+      },
+      {
+        q: '5 puanlık teşvik nedir?',
+        a: 'İşverenin ödemesi gereken SGK payının 5 puanı Hazine tarafından karşılanır; işveren yalnızca %15,5 SGK payı öder.',
+      },
+    ],
+    content: `<p><strong>5510 Sayılı Sosyal Sigortalar Kanunu</strong> çerçevesinde işçi ve işveren, brüt ücret üzerinden belirlenen oranlarda prim öder. Bu primler sağlık, uzun vadeli sigorta (emeklilik) ve kısa vadeli sigorta kollarını kapsar.</p>
+
+<h2>2026 Prim Oranları Tablosu</h2>
+<table>
+  <thead><tr><th>Prim Kalemi</th><th>İşçi</th><th>İşveren</th></tr></thead>
+  <tbody>
+    <tr><td>SGK (Malullük, Yaşlılık, Ölüm)</td><td>%9</td><td>%11 (teşviksiz)</td></tr>
+    <tr><td>SGK (Hastalık, Analık)</td><td>%5</td><td>%7,5</td></tr>
+    <tr><td>SGK (Kısa Vadeli)</td><td>—</td><td>%2</td></tr>
+    <tr><td>İşsizlik Sigortası</td><td>%1</td><td>%2</td></tr>
+    <tr><td><strong>Toplam</strong></td><td><strong>%15</strong></td><td><strong>%22,5</strong></td></tr>
+  </tbody>
+</table>
+
+<h2>5 Puanlık İşveren Teşviki</h2>
+<p>4447 Sayılı Kanun kapsamında, özel sektör işverenlerine SGK işveren payının 5 puanı Hazine tarafından ödenmektedir. Bu sayede işveren fiilen yalnızca %17,5 işveren payı öder (SGK %15,5 + İşsizlik %2).</p>
+
+<h2>Prim Tavanı ve Tabanı</h2>
+<p>SGK primlerine esas kazancın alt sınırı asgari ücret, üst sınırı ise asgari ücretin 7,5 katıdır. 2026 itibarıyla alt sınır 33.030 TL, üst sınır ise yaklaşık 247.725 TL'dir. Bu aralık dışındaki ücretler prim hesabına dahil edilmez.</p>
+
+<h2>Hesaplama Aracımız</h2>
+<p>Brüt maaşınızı girerek işçi kesintilarını ve toplam işveren maliyetini anında hesaplamak için <a href="/sgk-prim-hesaplama">SGK Prim Hesaplama</a> aracımızı kullanabilirsiniz.</p>`,
+  },
+  {
+    slug: 'arac-muayene-ucreti-2026-randevu',
+    title: 'Araç Muayene Ücreti ve Randevusu 2026',
+    description:
+      'TÜVTÜRK araç muayene ücretleri, randevu alma adımları, muayene zamanları ve muayeneden geçememe durumunda yapılacaklar.',
+    excerpt:
+      '2026 araç muayene ücreti ne kadar? Randevu nasıl alınır? Muayeneye hangi belgelerle gidilir? Tüm adımlar bu rehberde.',
+    date: 'Mart 2026',
+    category: 'Ehliyet & Araç',
+    readingTime: '4 dk',
+    relatedTool: { name: 'Yakıt Maliyeti Hesaplama', href: '/yakit-maliyeti-hesaplama' },
+    faqs: [
+      {
+        q: '2026 araç muayene ücreti ne kadar?',
+        a: 'TÜVTÜRK araç muayene ücretleri araç tipine göre değişir. Otomobiller için 2026 yılı ücreti yaklaşık 800–1000 TL aralığında olup güncel fiyat için tuvturk.com.tr sitesi kontrol edilmelidir.',
+      },
+      {
+        q: 'Araç muayene randevusu nasıl alınır?',
+        a: 'tuvturk.com.tr veya e-Devlet üzerinden ya da TÜVTÜRK çağrı merkezi (444 0 888) aranarak randevu alınabilir.',
+      },
+      {
+        q: 'Araç muayenesine hangi belgelerle gidilir?',
+        a: 'Araç ruhsatı ve zorunlu trafik sigortası (trafik poliçesi) yeterlidir. Muayenede araçta bulunması gereken diğer belgeler: ilkyardım seti, uyarı üçgeni ve yangın tüpü.',
+      },
+      {
+        q: 'Muayeneden geçemezsem ne olur?',
+        a: '15 gün içinde eksiklikleri giderip yeniden muayeneye gidebilirsiniz. Bu süre geçerse yeniden tam ücret ödenmesi gerekir.',
+      },
+    ],
+    content: `<p>Araç muayenesi, trafik güvenliği açısından zorunlu bir yasal yükümlülüktür. Türkiye'de araç muayene işlemleri <strong>TÜVTÜRK</strong> bünyesindeki muayene istasyonlarında gerçekleştirilmektedir.</p>
+
+<h2>Araç Muayene Periyotları</h2>
+<p>Araçların muayene sıklığı yaşa göre değişmektedir:</p>
+<ul>
+  <li><strong>0-3 yıl arası:</strong> Muayene yok (yeni araç)</li>
+  <li><strong>3-6 yıl arası:</strong> 2 yılda bir muayene</li>
+  <li><strong>6 yıl ve üzeri:</strong> Yılda bir muayene</li>
+  <li><strong>Ticari araçlar:</strong> Her yıl zorunlu muayene</li>
+</ul>
+
+<h2>Muayene Randevusu Alma</h2>
+<p>TÜVTÜRK randevusu şu yollarla alınabilir:</p>
+<ul>
+  <li><strong>İnternet:</strong> tuvturk.com.tr sitesi</li>
+  <li><strong>e-Devlet:</strong> TÜVTÜRK randevu hizmeti</li>
+  <li><strong>Telefon:</strong> 444 0 888</li>
+  <li><strong>Mobil uygulama:</strong> TÜVTÜRK uygulaması</li>
+</ul>
+
+<h2>Muayenede Gerekli Belgeler</h2>
+<p>Muayeneye giderken yanınızda bulundurmanız gerekenler:</p>
+<ul>
+  <li>Araç ruhsatı (tescil belgesi)</li>
+  <li>Geçerli zorunlu trafik sigortası poliçesi</li>
+  <li>Araçta; ilkyardım seti, uyarı üçgeni, yangın tüpü</li>
+</ul>
+
+<h2>Muayeneden Geçememek</h2>
+<p>Araç muayeneden geçemezse, istasyonda bir "Muayene Sonuç Belgesi" düzenlenir. Bu belgede eksikliklerin giderilmesi için <strong>15 günlük süre</strong> tanınır. 15 gün içinde eksiklikler giderilip yeniden muayeneye gelinirse ilave ücret alınmaz. Süre aşılırsa tam muayene ücreti tekrar ödenir.</p>
+
+<h2>Süresi Geçmiş Muayene Cezası</h2>
+<p>Muayene süresini geçiren araçların trafikte seyretmesi halinde trafik cezası uygulanır. Yıllık trafik sigortası yaptırılmadan da muayene yaptırılamaz.</p>`,
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {

@@ -22,6 +22,10 @@ const tools: { slug: string; priority: number; changeFreq: MetadataRoute.Sitemap
   { slug: 'indirim-hesaplama',         priority: 0.8, changeFreq: 'never',   lastMod: '2025-01-01' },
   { slug: 'kar-zarar-hesaplama',       priority: 0.7, changeFreq: 'never',   lastMod: '2025-01-01' },
   { slug: 'kira-getirisi-hesaplama',   priority: 0.7, changeFreq: 'yearly',  lastMod: '2025-01-01' },
+  { slug: 'mtv-hesaplama',             priority: 0.8, changeFreq: 'yearly',  lastMod: '2026-01-01' },
+  { slug: 'yasal-faiz-hesaplama',      priority: 0.8, changeFreq: 'yearly',  lastMod: '2026-01-01' },
+  { slug: 'sgk-prim-hesaplama',        priority: 0.8, changeFreq: 'monthly', lastMod: '2026-01-01' },
+  { slug: 'emeklilik-hesaplama',       priority: 0.8, changeFreq: 'monthly', lastMod: '2026-01-01' },
   // ── Sağlık / Beden ─────────────────────────────────────────────────────────
   { slug: 'vki-hesaplama',             priority: 0.8, changeFreq: 'never',   lastMod: '2025-01-01' },
   { slug: 'kalori-hesaplama',          priority: 0.8, changeFreq: 'never',   lastMod: '2025-01-01' },
@@ -62,7 +66,11 @@ const blogSlugs = [
   { slug: 'kidem-tazminati-alma-sartlari',    lastMod: '2025-06-01' },
   { slug: '2026-gelir-vergisi-dilimleri',     lastMod: '2026-01-01' },
   { slug: 'sgk-prim-oranlari-2026',           lastMod: '2026-01-01' },
-  { slug: 'yillik-izin-haklari-turkiye',      lastMod: '2025-06-01' },
+  { slug: 'yillik-izin-haklari-turkiye',           lastMod: '2025-06-01' },
+  { slug: 'mtv-2026-motor-hacmine-gore-vergi',     lastMod: '2026-01-01' },
+  { slug: 'emeklilik-sartlari-2026-prim-gun-yas',  lastMod: '2026-01-01' },
+  { slug: 'sgk-prim-oranlari-isci-isveren-2026',   lastMod: '2026-01-01' },
+  { slug: 'arac-muayene-ucreti-2026-randevu',      lastMod: '2026-01-01' },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
