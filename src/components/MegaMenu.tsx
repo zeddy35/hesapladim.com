@@ -28,7 +28,7 @@ export default function MegaMenu() {
     >
       <button
         onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+        className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
       >
         Tüm Araçlar
         <ChevronDown
@@ -38,8 +38,8 @@ export default function MegaMenu() {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-2 w-[700px] bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 p-6 animate-in">
-          <div className="grid grid-cols-2 gap-x-10 gap-y-6">
+        <div className="absolute top-full right-0 mt-2 w-[800px] bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 p-6 animate-in">
+          <div className="grid grid-cols-3 gap-x-10 gap-y-6">
             {MENU_CATEGORIES.map(cat => (
               <div key={cat.id}>
                 <h3 className={`text-[11px] font-bold uppercase tracking-widest mb-2.5 ${cat.colorClass}`}>
