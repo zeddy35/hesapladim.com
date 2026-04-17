@@ -27,6 +27,14 @@ const faqs = [
     q: 'Kıdem tazminatı hesabında tarih farkı önemli mi?',
     a: 'Evet. Çalışma süresi gün cinsinden hesaplanır ve 365\'e bölünerek yıl değeri bulunur. 1 günlük fark bile kıdem tutarını etkileyebilir.',
   },
+  {
+    q: 'Artık yıl tarih farkını etkiler mi?',
+    a: 'Evet. Hesaplanan aralık içinde artık yıl varsa Şubat 29 günlüdür ve toplam gün sayısı buna göre artar. Araç artık yılları otomatik olarak dikkate alır.',
+  },
+  {
+    q: 'İki tarih arasındaki iş günü sayısını nasıl hesaplarım?',
+    a: 'Hafta sonu ve resmi tatil günleri çıkarılarak iş günü sayısı hesaplanır. Sözleşme ve ihbar süreleri için iş günü hesabı önemlidir; ilgili araç resmi tatilleri de dikkate alır.',
+  },
 ];
 
 export default function TarihFarkiHesaplamaPage() {
@@ -50,8 +58,14 @@ export default function TarihFarkiHesaplamaPage() {
         <TarihFarkiForm />
         <InfoSection
           title="İki Tarih Arasındaki Fark Nasıl Hesaplanır?"
-          intro="İki tarih arasındaki gün, hafta, ay ve yıl farkı hesaplanır. Sözleşme süreleri, kıdem hesabı, proje takibi gibi durumlarda kullanışlıdır."
+          intro="İki tarih arasındaki gün, hafta, ay ve yıl farkı hesaplanır. Sözleşme süreleri, kıdem hesabı, proje takibi, vize geçerlilik süresi gibi durumlarda sık başvurulan bir hesaplamadır. Araç artık yılları ve kısmi ayları otomatik yönetir."
           formula="Fark = Bitiş Tarihi − Başlangıç Tarihi"
+          steps={[
+            'Başlangıç tarihini seçin (örn. işe giriş tarihi)',
+            'Bitiş tarihini girin (örn. bugün veya sözleşme bitiş tarihi)',
+            'Yıl, ay, hafta ve gün cinsinden fark hesaplanır',
+            'İleri tarih hesabı için "X gün sonrası" özelliğini kullanın',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="tarih-farki-hesaplama" />

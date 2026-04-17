@@ -27,6 +27,14 @@ const faqs = [
     q: 'GNO 3.00 iyi midir?',
     a: 'GNO 3.00 (BB ortalaması) genel olarak iyi sayılır. Yüksek lisans başvurularında çoğu program en az 2.50-3.00 GNO şartı arar.',
   },
+  {
+    q: 'Ağırlıklı not ortalaması neden önemlidir?',
+    a: 'Farklı kredilere sahip dersler, ortalamayı farklı ölçüde etkiler. 4 kredilik bir dersin notu, 2 kredilik bir dersin notundan iki kat daha fazla ağırlık taşır. Bu yüzden basit ortalama yerine ağırlıklı ortalama kullanmak daha doğrudur.',
+  },
+  {
+    q: 'Onur ve yüksek onur belgesi için kaç GNO gerekir?',
+    a: "Çoğu Türk üniversitesinde onur belgesi için GNO ≥ 3.00, yüksek onur belgesi için GNO ≥ 3.50 şartı aranır. Ancak üniversiteden üniversiteye farklılık gösterebilir; kesin bilgi için öğrenci işlerinize danışın.",
+  },
 ];
 
 export default function NotOrtalamasiHesaplamaPage() {
@@ -50,8 +58,14 @@ export default function NotOrtalamasiHesaplamaPage() {
         <NotOrtalamasiForm />
         <InfoSection
           title="Not Ortalaması Nasıl Hesaplanır?"
-          intro="Ağırlıklı not ortalaması (GNO/AGNO), her dersin kredisiyle çarpılmış notların toplamının toplam krediye bölünmesiyle hesaplanır."
+          intro="Ağırlıklı not ortalaması (GNO/AGNO), her dersin kredisiyle çarpılmış notların toplamının toplam krediye bölünmesiyle hesaplanır. Bu araç harf notunu veya 100'lük puanı kabul eder ve onur belgesi için gereken GNO eşiğini de gösterir."
           formula="GNO = Σ(Harf Notu Katsayısı × Kredi) ÷ Toplam Kredi"
+          steps={[
+            "Her ders için harf notunu veya 100'lük puanı girin",
+            'Dersin kredi saatini ekleyin; birden fazla ders ekleyebilirsiniz',
+            'GNO ve 4.0 GPA eşdeğeri otomatik hesaplanır',
+            'Mezuniyet onur durumunu tabloda kontrol edin',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="not-ortalamasi-hesaplama" />

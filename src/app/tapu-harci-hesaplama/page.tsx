@@ -31,6 +31,14 @@ const faqs = [
     q: 'Tapu harcı beyan değerine göre mi hesaplanır?',
     a: 'Satış bedeli ile beyan değerinden hangisi yüksekse o esas alınır. Düşük beyanname yasal sorumluluk doğurur.',
   },
+  {
+    q: 'Tapu harcına ek olarak başka masraflar var mı?',
+    a: 'Evet. Tapu harcı dışında döner sermaye ücreti, kadastro müdürlüğü payı ve tapu siciline işleme ücreti gibi ek kalemler ödenir. Bunların toplamı birkaç bin TL düzeyinde olabilir.',
+  },
+  {
+    q: 'İlk kez konut alanlara tapu harcı indirimi var mı?',
+    a: "Belirli koşulları sağlayan ilk konut alımlarında KDV indirimi veya muafiyeti söz konusu olabilir; ancak tapu harcı konusunda genel olarak indirim uygulanmaz. Güncel teşvik ve istisnalar için Hazine ve Maliye Bakanlığı'nın duyurularını takip edin.",
+  },
 ];
 
 export default function TapuHarciPage() {
@@ -54,8 +62,14 @@ export default function TapuHarciPage() {
         <TapuHarciForm />
         <InfoSection
           title="Tapu Harcı Nasıl Hesaplanır?"
-          intro="Tapu harcı, gayrimenkul alım satımında alıcı ve satıcının ayrı ayrı ödediği bir vergidir. 492 sayılı Harçlar Kanunu'na göre satış bedeli üzerinden hesaplanır."
+          intro="Tapu harcı, gayrimenkul alım satımında alıcı ve satıcının ayrı ayrı ödediği bir vergidir. 492 sayılı Harçlar Kanunu'na göre satış bedeli üzerinden hesaplanır. Araç alıcı ve satıcı paylarını, döner sermaye ücretini ve toplam maliyeti ayrı ayrı gösterir."
           formula="Tapu Harcı = Satış Bedeli × 0,02 (alıcı) + Satış Bedeli × 0,02 (satıcı) = Toplam %4"
+          steps={[
+            'İşlem türünü seçin: satış, bağış veya ipotek',
+            'Gayrimenkulün satış bedelini girin',
+            'Alıcı ve satıcı payları ayrı ayrı hesaplanır',
+            'Döner sermaye ve toplam maliyet gösterilir',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="tapu-harci-hesaplama" />

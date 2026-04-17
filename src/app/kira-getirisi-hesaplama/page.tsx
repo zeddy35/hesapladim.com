@@ -32,6 +32,14 @@ const faqs = [
     q: 'Kira geliri vergiye tabi mi?',
     a: 'Evet. Kira geliri Türkiye\'de gelir vergisine tabidir. İstisna tutarının üzerindeki kira geliri için yıllık beyanname verilmesi gerekir.',
   },
+  {
+    q: 'Geri ödeme süresi (yıl) ne anlama gelir?',
+    a: 'Geri ödeme süresi = Mülk Değeri ÷ Yıllık Net Kira Geliri. Bu değer, yatırımın kendini kaç yılda amorti ettiğini gösterir. Türkiye\'de büyük şehirlerde 20-30 yıl aralığı tipiktir.',
+  },
+  {
+    q: 'Kira getirisi mi yoksa fiyat artışı mı daha iyi yatırım getirir?',
+    a: 'İkisi birlikte değerlendirilmelidir; toplam getiri = kira getirisi + değer artışı. Yüksek enflasyon dönemlerinde değer artışı öne çıkarken stabil dönemlerde kira verimi daha belirleyici olur.',
+  },
 ];
 
 export default function KiraGetirisiPage() {

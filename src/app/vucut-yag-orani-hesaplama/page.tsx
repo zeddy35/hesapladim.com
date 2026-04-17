@@ -32,6 +32,14 @@ const faqs = [
     q: 'Yağ oranını düşürmenin en etkili yolu nedir?',
     a: 'Kalori açığı (beslenme) ile direnç egzersizini birleştirmek, hem yağ yakmayı hem de kas kütlesini korumayı destekler. Aşırı kısıtlayıcı diyetler kas kaybına yol açabilir.',
   },
+  {
+    q: 'US Navy yöntemi ne kadar doğrudur?',
+    a: 'US Navy formülü, bant ölçüm yöntemine dayalı olduğundan DEXA veya suya daldırma testine kıyasla %3-5 hata payı taşır; ancak pratikte en erişilebilir yöntemlerden biridir.',
+  },
+  {
+    q: 'Yağ oranım %30 çıktı, bu ne anlama geliyor?',
+    a: 'Erkekler için %30 obezite sınırındayken kadınlar için "kabul edilebilir" kategorisinin üst sınırına denk gelir. Bu seviyede kardiyovasküler risk artış gösterebilir; bir sağlık profesyoneline danışmanız önerilir.',
+  },
 ];
 
 export default function VucutYagPage() {

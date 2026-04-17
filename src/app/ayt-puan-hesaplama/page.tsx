@@ -31,6 +31,14 @@ const faqs = [
     q: "AYT'de yanlış yapınca puan düşer mi?",
     a: 'Evet, her 4 yanlış 1 doğruyu götürür. Ceza katsayısı 0,25\'tir.',
   },
+  {
+    q: 'EA ile SAY puanı arasındaki fark nedir?',
+    a: 'EA (Eşit Ağırlık) puanı Türkçe ve Matematik testlerini eşit ağırlıkta değerlendirirken SAY puanı Matematik ve Fen Bilimleri ağırlıklıdır. İktisat, işletme gibi bölümler EA; mühendislik bölümleri SAY puanı kullanır.',
+  },
+  {
+    q: "YKS yerleştirmesinde AYT puanı yeterli mi?",
+    a: "Hayır. Lisans programları için TYT'den asgari puan şartı (genellikle 150 veya 180) sağlanmalıdır. TYT barajını geçmeyen adaylar, aldıkları AYT puanına bakılmaksızın yerleştirilmez.",
+  },
 ];
 
 export default function AytPuanHesaplamaPage() {

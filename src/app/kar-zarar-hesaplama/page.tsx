@@ -28,6 +28,14 @@ const faqs = [
     q: 'Brüt ve net kâr farkı nedir?',
     a: 'Brüt kâr, satışlardan yalnızca üretim maliyeti düşüldükten sonraki tutardır. Net kâr, tüm giderler (personel, kira, vergi vb.) çıkarıldıktan sonra kalan tutardır.',
   },
+  {
+    q: 'Başabaş noktası (break-even) nasıl hesaplanır?',
+    a: 'Başabaş noktası = Sabit Giderler ÷ (Birim Satış Fiyatı − Birim Değişken Maliyet). Bu formül ne kadar ürün satılması gerektiğini gösterir; bu noktanın altında zarar, üstünde kâr edilir.',
+  },
+  {
+    q: 'İstenen kâr marjına göre satış fiyatı nasıl belirlenir?',
+    a: 'Satış Fiyatı = Maliyet ÷ (1 − İstenen Kâr Marjı). Örneğin %25 kâr marjı için maliyet 600 TL ise Satış Fiyatı = 600 ÷ 0.75 = 800 TL olur.',
+  },
 ];
 
 export default function KarZararPage() {

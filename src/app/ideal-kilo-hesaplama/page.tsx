@@ -27,6 +27,14 @@ const faqs = [
     q: 'Boy 1.70 için ideal kilo kaçtır?',
     a: "1.70 m boy için VKİ'ye dayalı sağlıklı kilo aralığı yaklaşık 53–72 kg'dır. Cinsiyete ve vücut yapısına göre değişebilir.",
   },
+  {
+    q: 'İdeal kilo ile sağlıklı kilo aynı şey midir?',
+    a: 'İdeal kilo formülleri ortalama bir referans sunar; sağlıklı kilo ise VKİ 18.5–24.9 arasına denk gelen, kişisel sağlık durumu ve vücut bileşimiyle şekillenen daha geniş bir aralıktır. Sporcularda kas kütlesi yüksek olduğundan hesaplanan "ideal" kilo yetersiz kalabilir.',
+  },
+  {
+    q: 'Çocuklar için ideal kilo nasıl hesaplanır?',
+    a: "Çocuklarda VKİ yaşa ve cinsiyete göre yorumlanır; yüzdelik tablolarla karşılaştırılır. Bu araç yetişkinlere (18+) yönelik hesaplama yapar; çocuklar için bir çocuk doktoruna danışmak en doğru yoldur.",
+  },
 ];
 
 export default function Page() {

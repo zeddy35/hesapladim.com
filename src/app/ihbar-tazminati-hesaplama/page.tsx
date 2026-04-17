@@ -31,6 +31,14 @@ const faqs = [
     q: 'Kıdem ve ihbar tazminatı aynı anda alınabilir mi?',
     a: 'Evet. Her iki tazminat birbirinden bağımsızdır ve aynı anda talep edilebilir.',
   },
+  {
+    q: 'İşçi istifa ederse ihbar tazminatı alabilir mi?',
+    a: 'Hayır. Kural olarak işçi kendi iradesiyle istifa ederse ihbar tazminatı hakkı doğmaz. Ancak işveren işçiyi haklı bir neden olmaksızın çalıştırmazsa veya ihbar süresi tanımazsa işçi ihbar tazminatı talep edebilir.',
+  },
+  {
+    q: 'İhbar süresine uymak yerine tazminat ödemek mümkün mü?',
+    a: "Evet. İş Kanunu Madde 17'ye göre ihbar süresine ait ücretin peşin ödenerek sözleşme derhal feshedilebilir. Bu tutara 'peşin ihbar tazminatı' adı verilir.",
+  },
 ];
 
 export default function IhbarTazminatiPage() {

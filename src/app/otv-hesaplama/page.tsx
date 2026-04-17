@@ -27,6 +27,18 @@ const faqs = [
     q: 'ÖTV oranları değişiyor mu?',
     a: "Evet. ÖTV oranları her yıl bütçe kanunuyla güncellenebilir. Araç alımından önce güncel oranları Gelir İdaresi Başkanlığı'ndan teyit edin.",
   },
+  {
+    q: '2026 araç ÖTV dilimleri nelerdir?',
+    a: '2026 itibarıyla 0-1600 cc araçlarda matrah 320.000 TL altında %45, üstünde %50; 1601-2000 cc için %130-150; 2001 cc ve üzeri için %220 oranları uygulanmaktadır. Elektrikli araçlarda matrah 1.500.000 TL altında %10, üstünde %40 ÖTV alınmaktadır. Kesin oranlar için GİB tebliğlerini kontrol edin.',
+  },
+  {
+    q: 'İkinci el araçta ÖTV ödenir mi?',
+    a: 'Hayır. ÖTV yalnızca ilk tescil sırasında, yani aracın sıfır satışında bir kez ödenir. İkinci el alım-satım işlemlerinde ÖTV tekrar hesaplanmaz.',
+  },
+  {
+    q: 'Elektrikli araçlarda ÖTV avantajı var mı?',
+    a: "Evet. 2026 itibarıyla elektrikli araçlar benzinli ve dizel araçlara kıyasla çok daha düşük ÖTV dilimine tabidir. Düşük matrahlı elektrikli araçlarda %10 ÖTV uygulanması, satın alma maliyetini önemli ölçüde düşürmektedir.",
+  },
 ];
 
 export default function OtvPage() {
@@ -50,8 +62,14 @@ export default function OtvPage() {
         <OtvForm />
         <InfoSection
           title="ÖTV (Özel Tüketim Vergisi) Nasıl Hesaplanır?"
-          intro="Özel Tüketim Vergisi (ÖTV), motorlu taşıtlar, akaryakıt, alkol, tütün ve lüks ürünler gibi seçili ürünlere uygulanan dolaylı bir vergidir. Otomobil alımında ÖTV, satış fiyatının önemli bir bölümünü oluşturur."
+          intro="Özel Tüketim Vergisi (ÖTV), motorlu taşıtlar, akaryakıt, alkol, tütün ve lüks ürünler gibi seçili ürünlere uygulanan dolaylı bir vergidir. Otomobil alımında ÖTV, satış fiyatının önemli bir bölümünü oluşturur. Bu araç 2026 güncel oranlarıyla motor hacmi ve yakıt türüne göre ÖTV + KDV dökümünü hesaplar."
           formula="ÖTV Tutarı = Matrah × ÖTV Oranı   |   KDV Matrahı = Matrah + ÖTV"
+          steps={[
+            'Aracın motor hacmi veya yakıt türünü seçin (benzin, dizel, elektrikli)',
+            'Bayi liste fiyatını (ÖTV ve KDV hariç matrahı) girin',
+            'ÖTV tutarı, KDV ve toplam fiyat hesaplanır',
+            'Farklı motor hacimleri arasında karşılaştırma yapabilirsiniz',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="otv-hesaplama" />

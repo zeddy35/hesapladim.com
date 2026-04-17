@@ -32,6 +32,14 @@ const faqs = [
     q: 'LGS yerleştirme nasıl yapılır?',
     a: 'LGS puanı ve okul türü tercihi esas alınarak merkezi sisteme göre yerleştirme yapılır. Puan eşitliğinde OBP (Okul Başarı Puanı) devreye girer.',
   },
+  {
+    q: 'OBP (Okul Başarı Puanı) nedir, LGS puanına katkısı var mı?',
+    a: 'OBP, 6-8. sınıf yıl sonu not ortalamasından hesaplanan 500 üzerinden bir puandır. Yerleştirme puanı: LGS Puanı × 0,6 + OBP × 0,4 formülüyle hesaplanır; bu nedenle 8. sınıf not ortalaması da yerleştirmede kritik rol oynar.',
+  },
+  {
+    q: "LGS'de hangi dersler sınava giriyor?",
+    a: "LGS'de Türkçe (20 soru), Matematik (20 soru), Fen Bilimleri (20 soru), TC İnkılap Tarihi (10 soru), Yabancı Dil (10 soru), Din Kültürü (10 soru) olmak üzere toplam 90 soru bulunur.",
+  },
 ];
 
 export default function LgsPuanPage() {

@@ -32,6 +32,14 @@ const faqs = [
     q: '60 KPSS puanı iyi midir?',
     a: 'Atama yapılan kadrolara ve yıla göre değişmekle birlikte, genel idare hizmetleri kadrolarında 70+ puan çoğunlukla tercih edilir. Bazı özelleşmiş kadrolarda 60 puan yeterli olabilir.',
   },
+  {
+    q: 'KPSS GY ve GK hangi konuları kapsar?',
+    a: 'Genel Yetenek (GY): Sözel ve sayısal akıl yürütme, matematik, geometri, Türkçe dil bilgisi. Genel Kültür (GK): Türkiye tarihi, coğrafyası, vatandaşlık, güncel olaylar ve temel yurttaşlık bilgisi.',
+  },
+  {
+    q: 'KPSS A grubu ile B grubu arasındaki fark nedir?',
+    a: 'A grubu KPSS, müfettiş ve uzman gibi kariyer pozisyonları için ek sınavları (alan bilgisi, mülakat) içerir. B grubu kadrolar yalnızca GY-GK puanıyla atama yapılan genel memuriyetleri kapsar.',
+  },
 ];
 
 export default function KpssPuanHesaplamaPage() {

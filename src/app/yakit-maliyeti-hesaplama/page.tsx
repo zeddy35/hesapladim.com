@@ -32,6 +32,14 @@ const faqs = [
     q: 'Şehir içi ve şehirlerarası tüketim farkı neden önemli?',
     a: 'Şehir içi duraklar, trafik ve sık fren kullanımı yakıt tüketimini artırır. Şehirlerarası sabit hızda seyahat daha düşük tüketim sağlar; bu nedenle ayrı hesaplama yapılabilir.',
   },
+  {
+    q: 'Hız yakıt tüketimini nasıl etkiler?',
+    a: 'Genel kural olarak 90–110 km/s arası en verimli hız aralığıdır. 120 km/s\'de tüketim yaklaşık %10-15 artar; 140 km/s\'de ise %25-30 daha fazla yakıt harcanır.',
+  },
+  {
+    q: 'Aylık yakıt bütçemi nasıl planlayayım?',
+    a: 'Aylık ortalama km\'nizi girin ve araçtaki ortalama tüketim ve güncel yakıt fiyatıyla çarpın. Aylık bütçe = (Aylık km × L/100km) ÷ 100 × Litre Fiyatı formülüyle hesaplanır.',
+  },
 ];
 
 export default function YakitMaliyetiPage() {

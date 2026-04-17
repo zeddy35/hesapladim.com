@@ -32,6 +32,10 @@ const faqs = [
     q: 'Kıst gün maaşında vergi kesintileri nasıl uygulanır?',
     a: 'Kıst ücret üzerinden normal maaş gibi SGK, işsizlik ve gelir vergisi kesintileri yapılır. Gelir vergisinde kümülatif matrah o aya ait ücret kadar artar.',
   },
+  {
+    q: 'Ay ortasında başlayan biri için maaş tam ay mı ödenir?',
+    a: 'Hayır. Yalnızca çalışılan günler için maaş ödenir. Örneğin 15 Mart\'ta işe başlayan ve 31 gün çeken martta çalışan biri 17 günlük maaş alır (15 Mart dahil 17 gün).',
+  },
 ];
 
 export default function KistGunPage() {

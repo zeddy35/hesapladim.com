@@ -27,6 +27,18 @@ const faqs = [
     q: 'Adım uzunluğu kaloriyi etkiler mi?',
     a: 'Evet. Daha uzun adımlarla aynı mesafe daha az adımda katedilir; toplam kalori harcaması benzer olmakla birlikte adım sayısı farklı çıkar.',
   },
+  {
+    q: 'Günde kaç adım atılması önerilir?',
+    a: 'Dünya Sağlık Örgütü (WHO) haftada en az 150 dakika orta yoğunluklu aktivite önerir. Bu genellikle günde 7.000–10.000 adıma karşılık gelir. Sedanter bireyler için 5.000 adım bile anlamlı bir başlangıçtır.',
+  },
+  {
+    q: 'Koşu ile yürüyüşte adım başına kalori farkı var mı?',
+    a: 'Evet. Koşu hem hız hem kas yükü açısından daha yüksek enerji gerektirir. Aynı mesafe için koşmak yürümeye kıyasla yaklaşık %30–40 daha fazla kalori yakmanızı sağlar.',
+  },
+  {
+    q: 'Telefonumun adım sayacı güvenilir mi?',
+    a: 'Modern akıllı telefon ivme ölçerleri günlük adımı genellikle %5–10 hatayla tahmin eder. Hassas ölçüm için özel bir aktivite bilekliği veya pedometre kullanın.',
+  },
 ];
 
 export default function Page() {
@@ -50,8 +62,14 @@ export default function Page() {
         <AdimKaloriForm />
         <InfoSection
           title="Adım Sayısından Yakılan Kalori Nasıl Hesaplanır?"
-          intro="Günlük adım sayısı, kilo ve ortalama adım uzunluğu kullanılarak yakılan kalori miktarı tahmin edilir. Yürüyüş hızı ve vücut ağırlığı kalori yakımını doğrudan etkiler."
+          intro="Günlük adım sayısı, kilo ve ortalama adım uzunluğu kullanılarak yakılan kalori miktarı tahmin edilir. Yürüyüş hızı ve vücut ağırlığı kalori yakımını doğrudan etkiler. Hesaplama MET (Metabolic Equivalent of Task) değerine dayalı olarak bilimsel literatürden uyarlanmıştır."
           formula="Yakılan Kalori ≈ Adım Sayısı × 0.04 × Ağırlık (kg) ÷ 70"
+          steps={[
+            'Günlük adım sayınızı ve kilonuzu girin',
+            'Opsiyonel olarak boy ve yürüyüş hızı bilgisi ekleyin',
+            'Yakılan kalori, yürünen mesafe ve süre hesaplanır',
+            'Sonucu diğer günlerle kıyaslayarak haftalık hedefinizi belirleyin',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="adim-kalori-hesaplama" />

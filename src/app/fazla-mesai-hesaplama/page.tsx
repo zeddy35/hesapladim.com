@@ -31,6 +31,14 @@ const faqs = [
     q: 'Fazla mesai izinle telafi edilebilir mi?',
     a: 'Evet. İşçinin onayıyla her saat fazla mesai için 1 saat 30 dakika serbest zaman verilebilir.',
   },
+  {
+    q: 'Resmi tatil günü çalışmak için ücret zammı ne kadardır?',
+    a: 'Ulusal bayram ve genel tatil günlerinde çalışan işçiye, çalıştığı her gün için bir ilave günlük ücret ödenir. Bu, toplam ücretin iki katı anlamına gelir (%100 zam).',
+  },
+  {
+    q: 'Parça başı ya da komisyon bazlı çalışanlarda fazla mesai nasıl hesaplanır?',
+    a: 'Parça başı veya komisyon bazlı çalışanlarda saatlik ücret, aylık toplam kazancın haftalık çalışma saatine bölünmesiyle bulunur. Hesaplama yöntemi İş Kanunu\'nun 47. maddesiyle düzenlenmiştir.',
+  },
 ];
 
 export default function FazlaMesaiPage() {

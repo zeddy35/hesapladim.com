@@ -32,6 +32,14 @@ const faqs = [
     q: "TYT puanı AYT'yi etkiler mi?",
     a: "Evet. Bazı programlarda TYT puanı ağırlıklı olarak hesaplamaya girer. YKS yerleştirme puanı = TYT Puanı × Ağırlık + AYT Puanı × Ağırlık formülüyle hesaplanır.",
   },
+  {
+    q: "TYT'de kaç net puan kaç puana karşılık gelir?",
+    a: "TYT'de 120 sorunun tamamı doğru yapıldığında yaklaşık 500 puan alınır; 40 net genellikle 300–320 puan aralığına, 60 net ise 340–370 puan bandına karşılık gelir. Kesin eşleştirme her yıl ÖSYM katsayıları güncellendikçe değişebilir.",
+  },
+  {
+    q: "TYT'de hangi konular çıkıyor?",
+    a: "TYT Türkçe (40 soru): dil bilgisi ve anlama. Temel Matematik (40 soru): sayılar, cebir, geometri. Fen Bilimleri (20 soru): fizik, kimya, biyoloji. Sosyal Bilimler (20 soru): tarih, coğrafya, felsefe, din kültürü.",
+  },
 ];
 
 export default function TytPuanHesaplamaPage() {

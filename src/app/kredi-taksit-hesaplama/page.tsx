@@ -32,6 +32,14 @@ const faqs = [
     q: 'Erken ödeme yapmak avantajlı mı?',
     a: 'Erken kapatma hem faiz maliyetini azaltır hem de kalan taksit yükünü ortadan kaldırır; ancak bazı bankalar erken ödeme ücreti talep edebilir.',
   },
+  {
+    q: 'Vadeyi uzatmak taksiti düşürür mü?',
+    a: 'Evet, aylık taksit miktarı düşer; ancak daha uzun süre faiz ödeneceğinden toplam maliyet artar. Örneğin 500.000 TL kredide 24 ay yerine 48 aya geçmek aylık taksiti yaklaşık yarıya indirir ama toplam faiz yükünü önemli ölçüde artırır.',
+  },
+  {
+    q: 'Etkin yıllık faiz oranı (EYF) nedir?',
+    a: "Etkin yıllık faiz oranı; BSMV, KKDF ve diğer masraflar dahil gerçek yıllık maliyeti gösterir. Bankalar yasal olarak EYF'yi açıklamak zorundadır; bu oran ilan edilen faizden her zaman yüksektir.",
+  },
 ];
 
 export default function KrediTaksitPage() {

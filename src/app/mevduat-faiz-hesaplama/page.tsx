@@ -27,6 +27,14 @@ const faqs = [
     q: 'Bileşik faiz mi basit faiz mi uygulanır?',
     a: 'Mevduat hesapları genellikle vade sonunda basit faiz uygular. Yenilenen hesaplarda anaparaya faiz eklenerek bileşik etki oluşabilir.',
   },
+  {
+    q: '1 ay, 3 ay ve 6 ay vadeli mevduattan hangisi daha avantajlıdır?',
+    a: 'Faiz oranları sabit kaldığında uzun vade daha yüksek toplam getiri sağlar. Ancak faiz oranlarının yükseleceği beklentisinde kısa vade daha esnektir; vade dolunca daha yüksek faizle yenileme yapılabilir.',
+  },
+  {
+    q: 'Döviz mevduatında stopaj oranı farklı mı?',
+    a: 'Evet. Döviz cinsinden mevduat hesaplarında stopaj oranı TL mevduata kıyasla farklı uygulanabilir. Güncel oranlar için Resmi Gazete yayımlarını veya bankanızı kontrol etmeniz önerilir.',
+  },
 ];
 
 export default function MevduatFaizPage() {

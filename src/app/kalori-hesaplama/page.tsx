@@ -31,6 +31,14 @@ const faqs = [
     q: 'TDEE ne demektir?',
     a: 'Total Daily Energy Expenditure (TDEE), günlük toplam enerji harcamasıdır. BMH\'nin aktivite katsayısıyla çarpılmasıyla bulunur.',
   },
+  {
+    q: 'Mifflin-St Jeor ile Harris-Benedict arasındaki fark nedir?',
+    a: 'Her iki formül de BMH hesaplamak için kullanılır; ancak Mifflin-St Jeor (1990) modern araştırmalar için daha doğru kabul edilir ve araçta varsayılan olarak kullanılır. Harris-Benedict (1919) daha eski ve hafif daha yüksek değerler verir.',
+  },
+  {
+    q: 'Kilo almak için günde ne kadar fazla kalori tüketirim?',
+    a: 'Haftada yaklaşık 0,25-0,5 kg kas kütlesi kazanmak için TDEE\'nin 200-300 kalori üzerinde beslenilmesi önerilir. Bu, hızlı kilo alımı yerine yağsız kütleyi maksimize eder.',
+  },
 ];
 
 export default function Page() {

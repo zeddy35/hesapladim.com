@@ -32,6 +32,14 @@ const faqs = [
     q: 'Hangi ürünlerde hangi KDV oranı uygulanır?',
     a: '%1: Süt, yumurta, ekmek, gazete. %10: İşlenmiş gıda, restoran, otel. %20: Elektronik, giyim, mobilya, alkol. Güncel liste için Gelir İdaresi Başkanlığı web sitesini inceleyin.',
   },
+  {
+    q: 'KDV iadesi nasıl alınır?',
+    a: 'İndirimli oranlı (%1, %10) mal ve hizmet teslim eden mükellefler belirli koşullar altında KDV iadesi talep edebilir. KDV indiriminden yararlanamayan tutar yılda en az iki kez iade veya mahsup olarak talep edilir; başvuru GİB e-iade sistemi üzerinden yapılır.',
+  },
+  {
+    q: 'Özel matrah uygulaması nedir?',
+    a: 'Bazı ürün ve hizmetlerde (ikinci el araç, turizm acentesi hizmetleri gibi) tüm satış bedeli yerine kâr payı veya hizmet bedeli üzerinden KDV hesaplanır. Bu uygulamaya özel matrah şekli denir.',
+  },
 ];
 
 export default function KdvHesaplamaPage() {

@@ -32,6 +32,10 @@ const faqs = [
     q: 'Bu hesaplayıcıyı ne zaman kullanmalıyım?',
     a: "Yeni iş tekliflerinde 'elimde X TL kalsın' şartı koşuyorsanız ya da maaş artışı müzakerelerinde hedef belirliyorsanız bu araç işinize yarar.",
   },
+  {
+    q: '2026 gelir vergisi dilimleri nelerdir?',
+    a: '2026 yılı için Türkiye gelir vergisi dilimleri her yıl yeniden değerleme oranında güncellenir. Örnek olarak: ilk dilim %15, ikinci dilim %20, üçüncü dilim %27, dördüncü dilim %35, beşinci dilim %40\'tır. Kesin dilim tutarları için Resmi Gazete vergi tarifesini inceleyin.',
+  },
 ];
 
 export default function NettenBrutePage() {

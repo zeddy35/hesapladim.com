@@ -28,6 +28,14 @@ const faqs = [
     q: 'KDV dahil fiyata indirim uygulanır mı?',
     a: 'Genellikle evet; perakendede etiket fiyatına (KDV dahil) indirim uygulanır. Fatura düzenlenirken matrah ve KDV ayrı hesaplanır.',
   },
+  {
+    q: 'İndirim oranını tersine nasıl hesaplarım? (indirimli fiyattan orijinal fiyat bulmak)',
+    a: 'Orijinal Fiyat = İndirimli Fiyat ÷ (1 − İndirim Oranı). Örneğin %30 indirimle 700 TL olan bir ürünün orijinal fiyatı 700 ÷ 0.70 = 1.000 TL\'dir.',
+  },
+  {
+    q: 'Yüzde hesabı hangi durumlarda yanıltıcı olabilir?',
+    a: "Farklı taban üzerinden hesaplama yapılırsa sonuç beklenenden farklı çıkar. Örneğin %50 indirim ardından %50 zam, fiyatı olduğu yere getirmez; 100 → 50 → 75 olur. Daima taban değere dikkat edin.",
+  },
 ];
 
 export default function IndirimPage() {

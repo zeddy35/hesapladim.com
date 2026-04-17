@@ -31,6 +31,14 @@ const faqs = [
     q: 'Damga vergisini kim öder?',
     a: 'Genel kural olarak belgeyi düzenleyen taraf öder. Maaş bordrosunda damga vergisi işveren tarafından çalışanın bordrosundan kesilir.',
   },
+  {
+    q: 'Damga vergisi her yıl değişiyor mu?',
+    a: 'Evet. Damga vergisi oranları her yıl Bakanlar Kurulu kararıyla güncellenebilir ve Resmi Gazete\'de yayımlanır. Oran listesi 488 sayılı Damga Vergisi Kanunu\'na ekli tablolarda yer alır.',
+  },
+  {
+    q: 'Damga vergisinden muaf belgeler var mı?',
+    a: 'Evet. Kanunun 2 sayılı tablosunda muaf tutulan belgeler listelenir; örneğin belirli koşullarla düzenlenen bazı kamu belgeleri ve resmi daireler arasındaki yazışmalar damga vergisinden muaf olabilir.',
+  },
 ];
 
 export default function DamgaVergisiPage() {
@@ -54,8 +62,14 @@ export default function DamgaVergisiPage() {
         <DamgaVergisiForm />
         <InfoSection
           title="Damga Vergisi Nasıl Hesaplanır?"
-          intro="Damga vergisi; maaş bordrosu, kira sözleşmesi, iş sözleşmesi ve çeşitli belgeler üzerinden alınan bir vergidir. Maaş bordrosunda oran binde 7,59'dur."
+          intro="Damga vergisi; maaş bordrosu, kira sözleşmesi, iş sözleşmesi ve çeşitli belgeler üzerinden alınan bir vergidir. Maaş bordrosunda oran binde 7,59, kira sözleşmelerinde binde 1,89'dur. Bu araç 2026 güncel oranlarıyla belge türüne göre otomatik hesaplama yapar."
           formula="Damga Vergisi = Belge Tutarı × Oran ÷ 1000"
+          steps={[
+            'Belge türünü seçin (bordro, kira sözleşmesi, iş sözleşmesi vb.)',
+            'Belge tutarını girin',
+            '2026 oranıyla damga vergisi tutarı hesaplanır',
+            'Net tutarı damga vergisini düşerek kontrol edin',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="damga-vergisi-hesaplama" />

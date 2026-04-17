@@ -32,6 +32,14 @@ const faqs = [
     q: 'Çin burcu nasıl hesaplanır?',
     a: 'Çin burcunuzun belirlenmesinde doğum yılınız esas alınır. 12 yıllık döngüde her yıl farklı bir hayvana karşılık gelir (Fare, Öküz, Kaplan vb.).',
   },
+  {
+    q: 'Hangi gün doğduğumu nasıl öğrenebilirim?',
+    a: 'Doğum tarihinizi araçta girerseniz hangi haftanın gününe (Pazartesi, Salı vb.) denk geldiği Zeller veya Tomohiko Sakamoto algoritmasıyla otomatik olarak hesaplanır.',
+  },
+  {
+    q: 'Doğum günüme kaç gün kaldı?',
+    a: 'Araç bugünden bir sonraki doğum günününüze kalan gün sayısını hesaplar. Doğum günü tatil veya hafta sonu denk geliyorsa da bunu gösterir.',
+  },
 ];
 
 export default function YasHesaplamaPage() {
@@ -55,8 +63,14 @@ export default function YasHesaplamaPage() {
         <YasForm />
         <InfoSection
           title="Yaş Hesaplama Nasıl Çalışır?"
-          intro="Doğum tarihinizden bugüne kadar geçen tam yıl, ay ve gün sayısı hesaplanır. Burç ve Çin burcu bilgisi de otomatik olarak gösterilir."
+          intro="Doğum tarihinizden bugüne kadar geçen tam yıl, ay ve gün sayısı hesaplanır. Burç, Çin burcu, doğum günü geri sayımı ve doğum gününüzün hangi güne denk geldiği de otomatik olarak gösterilir."
           formula="Yaş = Bugün − Doğum Tarihi (yıl, ay, gün cinsinden)"
+          steps={[
+            'Doğum tarihinizi gün/ay/yıl olarak girin',
+            'Tamamlanan yaşınız, ay ve gün cinsinden hesaplanır',
+            'Batı ve Çin burcu otomatik gösterilir',
+            'Bir sonraki doğum gününüze kalan gün sayısını görün',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="yas-hesaplama" />

@@ -32,6 +32,14 @@ const faqs = [
     q: '200 TL\'ye %20 indirim uygulanırsa fiyat ne olur?',
     a: '200 × (1 − 20÷100) = 200 × 0,80 = 160 TL.',
   },
+  {
+    q: 'Hangi sayı 80\'in yüzde kaçıdır?',
+    a: 'Oran sorusu için: (Parça ÷ Bütün) × 100. Örneğin 20, 80\'in yüzde kaçıdır? (20 ÷ 80) × 100 = %25.',
+  },
+  {
+    q: '%150 artış ne demek?',
+    a: 'Yüzde 150 artış, değerin başlangıcına göre 1,5 kat daha fazla arttığı anlamına gelir. Örneğin 200 TL %150 arttığında 200 + 300 = 500 TL olur.',
+  },
 ];
 
 export default function YuzdeHesaplamaPage() {

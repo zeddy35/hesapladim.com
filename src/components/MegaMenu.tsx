@@ -35,7 +35,7 @@ export default function MegaMenu() {
           size={14}
           className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
         />
-      </button>
+      </button> 
 
       {open && (
         <div className="absolute top-full right-0 mt-2 w-[800px] bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 p-6 animate-in">

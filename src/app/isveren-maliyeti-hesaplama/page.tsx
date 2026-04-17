@@ -32,6 +32,10 @@ const faqs = [
     q: '5 puanlık SGK teşviki nedir?',
     a: "İşverenin %20,5 olan SGK payının 5 puanı Hazine tarafından karşılanır. Bu teşvikten yararlanıldığında işverenin ödemesi gereken SGK payı %15,5'e düşer.",
   },
+  {
+    q: 'Asgari ücretli bir çalışanın işverene toplam maliyeti 2026\'da ne kadardır?',
+    a: '2026 yılı asgari ücreti üzerinden, işveren SGK + işsizlik paylarıyla birlikte brüt maaşın yaklaşık %22,5 fazlası kadar toplam maliyet oluşur. Kesin tutar için güncel asgari ücret rakamını araca girebilirsiniz.',
+  },
 ];
 
 export default function IsverenMaliyetiPage() {

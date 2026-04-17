@@ -32,6 +32,14 @@ const faqs = [
     q: 'Çocuklar için VKİ nasıl yorumlanır?',
     a: 'Çocuklarda VKİ yaş ve cinsiyet persentilleriyle yorumlanır; yetişkin sınırları doğrudan uygulanmaz.',
   },
+  {
+    q: 'VKİ 25 fazla kilolu mu sayılır?',
+    a: "Evet. WHO sınıflamasına göre VKİ 25,0–29,9 'fazla kilolu' kategorisindedir. Bu aralık tek başına bir hastalık göstergesi değildir; bel çevresi, yaş, cinsiyet ve genel sağlık tablosu birlikte değerlendirilmelidir.",
+  },
+  {
+    q: 'VKİ ile karın yağı arasındaki fark nedir?',
+    a: 'VKİ genel vücut ağırlığını ölçer; karın (visseral) yağı ise metabolik sağlık için daha kritiktir. Bel çevresi ölçümü (erkekte >94 cm, kadında >80 cm risk sinyali) karın yağı için daha iyi bir göstergedir.',
+  },
 ];
 
 export default function Page() {

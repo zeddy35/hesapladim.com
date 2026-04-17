@@ -28,6 +28,14 @@ const faqs = [
     q: 'TÜFE ile ÜFE farkı nedir?',
     a: 'TÜFE (Tüketici Fiyat Endeksi) tüketicilerin ödediği fiyatları; ÜFE (Üretici Fiyat Endeksi) üreticilerin sattığı fiyatları ölçer. Enflasyon denilince genellikle TÜFE kastedilir.',
   },
+  {
+    q: 'Reel faiz ile nominal faiz arasındaki fark nedir?',
+    a: 'Nominal faiz bankanın açıkladığı orandır. Reel faiz ise enflasyon çıkarıldıktan sonra kalan gerçek getiridir. Reel Faiz ≈ Nominal Faiz − Enflasyon. Reel faiz negatifse paranızın satın alma gücü azalıyor demektir.',
+  },
+  {
+    q: '5 yıl önce 100.000 TL bugün ne kadar eder?',
+    a: "Araçta başlangıç yılı ve tutarı girerek bugünkü nominal eşdeğerini hesaplayabilirsiniz. Türkiye İstatistik Kurumu (TÜİK) TÜFE verilerini kullanarak geçmiş yıllara ait gerçek enflasyon oranlarına ulaşabilirsiniz.",
+  },
 ];
 
 export default function EnflasyonPage() {
@@ -51,8 +59,14 @@ export default function EnflasyonPage() {
         <EnflasyonForm />
         <InfoSection
           title="Enflasyon Etkisi Nasıl Hesaplanır?"
-          intro="Enflasyon hesaplama, belirli bir tutarın geçmişteki ya da gelecekteki satın alma gücünü gösterir. Ücret artışlarının reel değerini ve tasarrufların erimesini anlamak için kullanılır."
+          intro="Enflasyon hesaplama, belirli bir tutarın geçmişteki ya da gelecekteki satın alma gücünü gösterir. Ücret artışlarının reel değerini, tasarrufların erimesini ve yatırım getirilerinin gerçekliğini anlamak için kullanılır. Araç hem basit hem bileşik enflasyon yöntemini destekler."
           formula="Reel Değer = Nominal Tutar ÷ (1 + Enflasyon Oranı)^Yıl"
+          steps={[
+            'Başlangıç tutarını girin (örn. 100.000 TL)',
+            'Yıllık enflasyon oranını ve süreyi belirtin',
+            'Reel değer kaybı ve bugünkü eşdeğer gösterilir',
+            'Sonucu faiz getirinizle kıyaslayarak reel kazanç/kaybı görün',
+          ]}
           faqs={faqs}
         />
         <RelatedTools slug="enflasyon-hesaplama" />

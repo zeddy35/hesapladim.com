@@ -28,6 +28,18 @@ const faqs = [
     q: 'Aylık 1000 TL birikim 10 yılda ne kadar eder?',
     a: 'Yıllık %10 getiriyle aylık 1.000 TL birikimde 10 yılda yaklaşık 204.000 TL birikir. Araç size özelleştirilmiş hesaplama yapar.',
   },
+  {
+    q: 'Enflasyon birikim hesabını nasıl etkiler?',
+    a: 'Getiri oranı enflasyonun altında kalırsa nominal birikim artsa da reel satın alma gücü azalır. Reel getiri = Nominal Getiri − Enflasyon formülüyle gerçek kazancınızı hesaplayabilirsiniz.',
+  },
+  {
+    q: 'Ne kadar başlangıç sermayesi olmadan birikim yapmak mümkün mü?',
+    a: 'Evet. Başlangıç tutarını sıfır bırakıp yalnızca aylık ek katkıyla hesaplama yapabilirsiniz. Düzenli küçük miktarlar, bileşik faiz sayesinde uzun vadede büyük bir birikim oluşturur.',
+  },
+  {
+    q: 'Faiz aylık mı yıllık mı hesaplanmalı?',
+    a: "Araç yıllık faiz oranını aylık bileşik olarak hesaplar (aylık oran = yıllık oran ÷ 12). Banka veya yatırım aracınızın faiz bileşme sıklığını öğrenerek daha doğru bir karşılaştırma yapabilirsiniz.",
+  },
 ];
 
 export default function BirikimPage() {

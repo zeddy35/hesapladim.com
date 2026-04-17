@@ -31,6 +31,14 @@ const faqs = [
     q: 'İşyeri kirasında artış sınırı var mı?',
     a: 'İşyeri kiralarında TÜFE sınırlaması uygulanmaz. Taraflar sözleşmede belirlenen oran veya koşulları uygular.',
   },
+  {
+    q: 'Ev sahibi yasal sınırı aşan artış yaparsa kiracı ne yapabilir?',
+    a: 'Kiracı, sınırı aşan kira artış talebini reddetme hakkına sahiptir. Uyuşmazlık halinde aile mahkemesine veya sulh hukuk mahkemesine başvurulabilir. Fazla ödenen tutar iade talep edilebilir.',
+  },
+  {
+    q: 'Yeni bir kiracı için kira tavanı uygulanıyor mu?',
+    a: "Yeni kira sözleşmelerinde (farklı kiracı) yasal tavan uygulanmaz; ev sahibi piyasa koşullarına göre serbestçe kira belirleyebilir. Tavan yalnızca aynı kiracıyla sözleşme yenilemelerinde geçerlidir.",
+  },
 ];
 
 export default function KiraArtisPage() {
