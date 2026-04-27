@@ -12,8 +12,30 @@ interface InfoSectionProps {
 }
 
 export function InfoSection({ title, intro, formula, steps, faqs }: InfoSectionProps) {
+  const howToSchema =
+    steps && steps.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: title,
+          description: intro,
+          step: steps.map((step, i) => ({
+            '@type': 'HowToStep',
+            position: i + 1,
+            name: step,
+            text: step,
+          })),
+        }
+      : null;
+
   return (
     <section className="mt-10 space-y-6">
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+      )}
       <div className="border border-zinc-200 rounded-xl p-6 bg-white">
         <h2 className="text-lg font-semibold text-zinc-800 mb-3">{title}</h2>
         <p className="text-zinc-600 text-sm leading-relaxed">{intro}</p>
