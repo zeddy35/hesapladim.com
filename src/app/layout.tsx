@@ -47,6 +47,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://hesaplayim.com',
   },
+  manifest: '/manifest.json',
 };
 
 const websiteSchema = {

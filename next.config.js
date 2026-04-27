@@ -2,8 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
+  trailingSlash: false,
   images: {
     formats: ['image/avif', 'image/webp'],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.hesaplayim.com' }],
+        destination: 'https://hesaplayim.com/:path*',
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
